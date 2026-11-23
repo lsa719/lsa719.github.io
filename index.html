@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="보장점검표">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0d2440">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='38' fill='%230d2440'/%3E%3Cpath d='M52 92l24 24 52-52' stroke='%233d86f7' stroke-width='16' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<title>병력·알릴의무 실무 점검표 | 이상아 팀장 전용</title>
+<style>
+:root{
+  --navy:#0d2440;
+  --navy2:#123457;
+  --blue:#1b5fd9;
+  --blue2:#3d86f7;
+  --sky:#eaf1fd;
+  --ink:#16202e;
+  --ink2:#4a5a70;
+  --line:#dbe4f0;
+  --bg:#f3f6fb;
+  --white:#fff;
+  --amber:#b26a00;
+  --amberbg:#fff6e5;
+  --red:#b3261e;
+  --redbg:#fdecea;
+  --green:#1a6b46;
+  --greenbg:#e7f4ed;
+  --radius:16px;
+  --shadow:0 1px 2px rgba(13,36,64,.06),0 8px 24px rgba(13,36,64,.07);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","맑은 고딕","Noto Sans KR",system-ui,sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.62;
+  word-break:keep-all;overflow-wrap:break-word;
+  -webkit-text-size-adjust:100%;
+  font-size:16px;
+}
+.wrap{max-width:940px;margin:0 auto;padding:0 14px 64px}
+
+/* ── header ── */
+.hero{
+  background:linear-gradient(150deg,var(--navy) 0%,var(--navy2) 48%,#17457a 100%);
+  color:#fff;padding:30px 20px 26px;margin:0 -14px 0;
+  border-radius:0 0 24px 24px;position:relative;overflow:hidden;
+}
+.hero::after{
+  content:"";position:absolute;right:-70px;top:-70px;width:230px;height:230px;
+  background:radial-gradient(circle,rgba(61,134,247,.42),transparent 68%);border-radius:50%;
+}
+.hero-in{max-width:912px;margin:0 auto;position:relative;z-index:1}
+.eyebrow{
+  display:inline-block;font-size:11.5px;letter-spacing:.09em;font-weight:700;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);
+  padding:5px 11px;border-radius:999px;color:#d6e6ff;margin-bottom:14px;
+}
+.hero h1{
+  font-size:25px;line-height:1.32;margin:0 0 8px;font-weight:800;letter-spacing:-.02em;
+}
+.hero .owner{font-size:14px;color:#b9d2f2;margin:0 0 16px;font-weight:600}
+.hero .chips{display:flex;flex-wrap:wrap;gap:6px}
+.hero .chips span{
+  font-size:11.5px;color:#cfe0f8;background:rgba(255,255,255,.09);
+  border:1px solid rgba(255,255,255,.16);padding:4px 9px;border-radius:7px;
+}
+
+/* ── tabs ── */
+.tabs{
+  display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;
+  padding:12px 0 10px;position:sticky;top:0;z-index:20;
+  background:var(--bg);box-shadow:0 8px 12px -10px rgba(13,36,64,.35);
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  flex:0 0 auto;border:1px solid var(--line);background:var(--white);color:var(--ink2);
+  font:inherit;font-size:13.5px;font-weight:700;padding:9px 15px;border-radius:999px;
+  cursor:pointer;white-space:nowrap;transition:.15s;text-decoration:none;
+  display:inline-flex;align-items:center;
+}
+.tab .n{
+  display:inline-block;font-size:11px;color:#8aa0bd;margin-right:5px;font-weight:800;
+}
+/* 선택 표시는 JS가 켜진 상태에서만 (미리보기에서는 앵커 목록으로 보이게) */
+.js-ready .tab[aria-selected="true"]{
+  background:var(--blue);border-color:var(--blue);color:#fff;
+  box-shadow:0 4px 12px rgba(27,95,217,.28);
+}
+.js-ready .tab[aria-selected="true"] .n{color:#bcd6ff}
+
+/* 기본은 5개 섹션 전부 펼침 → 미리보기(JS 차단)에서도 모든 내용이 보임 */
+.panel{display:block;animation:fade .2s ease;scroll-margin-top:74px}
+.js-ready .panel{display:none}
+.js-ready .panel.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* ── JS 미실행(iPhone 미리보기) 대응 ── */
+.safari-hint{
+  display:flex;gap:9px;align-items:flex-start;margin:14px 0 0;
+  padding:12px 14px;border-radius:13px;background:var(--amberbg);
+  border:1px solid #f0d9a8;color:#6b4a00;font-size:12.5px;line-height:1.65;font-weight:600;
+}
+.safari-hint .hi{flex:0 0 auto;font-size:15px;line-height:1.25}
+.safari-hint b{color:#8a4a00}
+.safari-hint .sm{display:block;margin-top:5px;font-weight:600;color:#7b5310}
+.js-ready .safari-hint{display:none!important}
+.sec-tag{
+  display:flex;align-items:center;gap:9px;margin:20px 0 12px;padding:10px 14px;
+  border-radius:12px;background:var(--navy);color:#fff;font-size:12.5px;
+  font-weight:800;letter-spacing:.01em;box-shadow:var(--shadow);
+}
+.sec-tag .sn{color:#8fb8f5;font-variant-numeric:tabular-nums;font-weight:800}
+.js-ready .sec-tag{display:none}
+.jsfallback{
+  font-size:12.5px;color:#5d6f86;background:#f7f9fd;border:1px dashed #cfdae8;
+  border-radius:11px;padding:11px 13px;line-height:1.66;
+}
+.jsfallback b{color:var(--blue)}
+.dategrid .jsfallback{grid-column:1 / -1}
+.ck li .jsfallback,.check li .jsfallback{border:0;background:none;padding:0}
+
+/* ── generic cards ── */
+.card{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px;margin-bottom:14px;box-shadow:var(--shadow);
+}
+.card h2{
+  font-size:16.5px;margin:0 0 4px;font-weight:800;letter-spacing:-.01em;
+  display:flex;align-items:center;gap:8px;
+}
+.card h2 .dot{width:7px;height:7px;border-radius:50%;background:var(--blue2);flex:0 0 auto}
+.card .lead{font-size:13px;color:var(--ink2);margin:0 0 14px}
+.h3{
+  font-size:13px;font-weight:800;color:var(--navy);margin:16px 0 8px;
+  padding-top:13px;border-top:1px dashed var(--line);
+}
+.h3:first-child{border-top:0;padding-top:0;margin-top:0}
+
+/* ── form ── */
+label.fl{display:block;font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:6px}
+input[type=date],input[type=text],select{
+  width:100%;font:inherit;font-size:16px;padding:11px 12px;border:1.5px solid var(--line);
+  border-radius:11px;background:#fbfcfe;color:var(--ink);
+}
+input:focus,select:focus{outline:none;border-color:var(--blue2);background:#fff;box-shadow:0 0 0 3px rgba(61,134,247,.13)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:560px){.row{grid-template-columns:1fr}}
+.quick{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.qbtn{
+  font:inherit;font-size:12.5px;font-weight:700;padding:6px 11px;border-radius:8px;
+  border:1px solid var(--line);background:#fff;color:var(--blue);cursor:pointer;
+}
+.qbtn:active{background:var(--sky)}
+
+/* ── date result ── */
+.dategrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:4px}
+@media(max-width:560px){.dategrid{grid-template-columns:1fr}}
+.dbox{
+  border:1.5px solid var(--line);border-radius:13px;padding:12px;background:#fbfcfe;
+}
+.dbox.hi{border-color:#b9d2ff;background:linear-gradient(180deg,#f4f8ff,#fff)}
+.dbox .k{font-size:11.5px;font-weight:800;color:var(--blue);letter-spacing:.02em}
+.dbox .v{font-size:17px;font-weight:800;color:var(--navy);letter-spacing:-.02em;margin:2px 0 1px;font-variant-numeric:tabular-nums}
+.dbox .s{font-size:11.5px;color:var(--ink2)}
+.rangebar{
+  margin-top:12px;background:var(--sky);border:1px solid #d3e2fb;border-radius:12px;
+  padding:12px 13px;font-size:13px;color:#173a6b;
+}
+.rangebar b{font-variant-numeric:tabular-nums}
+
+/* ── preset ── */
+.seg{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.seg button{
+  font:inherit;font-size:12.5px;font-weight:700;padding:7px 11px;border-radius:8px;
+  border:1px solid var(--line);background:#fff;color:var(--ink2);cursor:pointer;
+}
+.seg button.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.seg button:active{transform:scale(.98)}
+
+/* ── checklist ── */
+.ck{list-style:none;padding:0;margin:0}
+.ck li{
+  border:1px solid var(--line);border-radius:12px;padding:12px 13px;margin-bottom:9px;background:#fff;
+}
+.ck .top{display:flex;gap:9px;align-items:flex-start}
+.ck .num{
+  flex:0 0 auto;width:21px;height:21px;border-radius:6px;background:var(--sky);color:var(--blue);
+  font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:2px;
+}
+.ck .q{font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.5}
+.ck .meta{font-size:11.5px;color:var(--ink2);margin-top:5px;padding-left:30px}
+.ck .meta b{color:var(--blue);font-variant-numeric:tabular-nums}
+.ck .act{
+  font-size:12px;color:var(--amber);background:var(--amberbg);border-radius:8px;
+  padding:7px 10px;margin-top:8px;margin-left:30px;
+}
+.ck li.warnme{border-color:#f2d49b;background:#fffdf7}
+.ck li.noq{opacity:.72}
+
+/* ── badges ── */
+.bd{display:inline-block;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:5px;line-height:1.6;vertical-align:1px}
+.bd3{background:#e6f0ff;color:#1a4fa8}
+.bd1{background:#e7eefc;color:#2c4f96}
+.bd5{background:#efe9ff;color:#5a34b8}
+.bdE{background:var(--greenbg);color:var(--green)}
+.bdN{background:#f0f2f6;color:#6a7788}
+.bdW{background:var(--amberbg);color:var(--amber)}
+.bdR{background:var(--redbg);color:var(--red)}
+.bd1{background:#e7eefc;color:#2c4f96}
+
+/* ── search ── */
+.searchwrap{position:relative;margin-bottom:10px}
+.searchwrap input{padding-left:38px}
+.searchwrap .ic{
+  position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:15px;color:#94a6bd;
+}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{
+  flex:0 0 auto;font:inherit;font-size:12.5px;font-weight:700;padding:6px 11px;border-radius:999px;
+  border:1px solid var(--line);background:#fff;color:var(--ink2);cursor:pointer;white-space:nowrap;
+}
+.chip.on{background:var(--sky);border-color:#b9d2ff;color:var(--blue)}
+.resultcount{font-size:12px;color:var(--ink2);margin:2px 0 10px}
+.item{
+  border:1px solid var(--line);border-radius:13px;background:#fff;margin-bottom:9px;overflow:hidden;
+}
+.item>button{
+  width:100%;text-align:left;font:inherit;background:none;border:0;padding:13px 14px;cursor:pointer;
+  display:block;color:inherit;
+}
+.item .ih{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.item .nm{font-size:14.5px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+.item .tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}
+.item .sm{font-size:12.5px;color:var(--ink2);margin-top:5px}
+.item .arw{flex:0 0 auto;color:#9fb0c6;font-size:12px;transition:.2s;margin-top:4px}
+.item.open .arw{transform:rotate(180deg)}
+.item .body{display:none;padding:0 14px 15px;border-top:1px solid var(--line);margin-top:0}
+.item.open .body{display:block}
+.item .body h4{font-size:12px;font-weight:800;color:var(--blue);margin:13px 0 5px;letter-spacing:.02em}
+.item .body ul{margin:0;padding-left:16px}
+.item .body li{font-size:13px;margin-bottom:4px;color:#2b3747}
+.item .body .tip{
+  margin-top:11px;font-size:12.5px;color:#5c4700;background:var(--amberbg);
+  border-radius:9px;padding:9px 11px;
+}
+
+/* ── guide ── */
+.msg{
+  background:#f7f9fd;border:1px solid var(--line);border-radius:12px;padding:14px;
+  font-size:13.5px;white-space:pre-wrap;line-height:1.75;color:#26313f;
+}
+.btn{
+  display:inline-flex;align-items:center;gap:6px;font:inherit;font-size:13px;font-weight:800;
+  padding:10px 15px;border-radius:10px;border:1.5px solid var(--blue);
+  background:var(--blue);color:#fff;cursor:pointer;margin-top:11px;
+}
+.btn:active{transform:scale(.985)}
+.btn.ghost{background:#fff;color:var(--blue)}
+.btn.done{background:var(--green);border-color:var(--green)}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap}
+
+/* checkbox list */
+.check{list-style:none;padding:0;margin:0}
+.check li{
+  display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #eef2f8;
+  font-size:13.5px;cursor:pointer;
+}
+.check li:last-child{border-bottom:0}
+.check input{
+  flex:0 0 auto;width:19px;height:19px;margin:2px 0 0;accent-color:var(--blue);cursor:pointer;
+}
+.check .tx b{display:block;font-weight:700;color:var(--ink);font-size:13.5px}
+.check .tx span{font-size:12px;color:var(--ink2)}
+.progwrap{margin:12px 0 4px;height:8px;background:#e8eef8;border-radius:999px;overflow:hidden}
+.prog{height:100%;width:0%;background:linear-gradient(90deg,var(--blue2),var(--blue));border-radius:999px;transition:.25s}
+.progtx{font-size:12px;color:var(--ink2);font-weight:700}
+
+/* sources */
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+table.cmp{min-width:620px}
+.cmp-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.cmp-m{display:none}
+.cmp-m .mrow{border:1px solid var(--line);border-radius:11px;padding:11px 12px;margin-bottom:8px;background:#fbfcfe}
+.cmp-m .mt{font-size:13.5px;font-weight:800;color:var(--navy)}
+.cmp-m .mt b{color:var(--blue);font-weight:800}
+.cmp-m .ms{font-size:12.5px;color:var(--ink);margin-top:3px}
+.cmp-m .me{font-size:12px;color:var(--ink2);margin-top:4px}
+@media(max-width:680px){
+  .cmp-wrap{display:none}
+  .cmp-m{display:block}
+}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid #eef2f8;vertical-align:top}
+th{font-size:11.5px;color:var(--ink2);font-weight:800;background:#f8fafd}
+td a{color:var(--blue);text-decoration:none;word-break:break-all}
+td a:hover{text-decoration:underline}
+.srclist{list-style:none;padding:0;margin:0}
+.srclist li{
+  padding:12px 0;border-bottom:1px solid #eef2f8;font-size:13px;
+}
+.srclist li:last-child{border-bottom:0}
+.srclist .t{font-weight:800;color:var(--navy);font-size:13.5px}
+.srclist .u{font-size:11.5px;color:var(--ink2);word-break:break-all;margin-top:2px}
+.srclist .u a{color:var(--blue);text-decoration:none}
+.note{
+  font-size:12.5px;border-radius:11px;padding:12px 13px;margin-top:11px;line-height:1.66;
+}
+.note.amber{background:var(--amberbg);color:#6b4a00;border:1px solid #f0d9a8}
+.note.red{background:var(--redbg);color:#7a1d17;border:1px solid #f3cdc9}
+.note.blue{background:var(--sky);color:#173a6b;border:1px solid #d3e2fb}
+.note.green{background:var(--greenbg);color:#14503a;border:1px solid #bfe2d2}
+.note b{font-weight:800}
+
+/* insurer tab */
+.ins{border:1px solid var(--line);border-radius:13px;background:#fff;padding:14px;margin-bottom:10px}
+.ins .ihd{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.ins .inm{font-size:15.5px;font-weight:800;color:var(--navy);letter-spacing:-.02em}
+.ins .ibd{font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:5px;background:var(--sky);color:var(--blue)}
+.ins .ibd.life{background:#f1ecff;color:#5a34b8}
+.ins .idate{margin-left:auto;font-size:11px;color:#8496ad;font-weight:700;white-space:nowrap}
+.ins .iln{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.ins .iln span{font-size:11.5px;color:#2b3747;background:#f4f7fc;border:1px solid #e3eaf5;padding:3px 8px;border-radius:6px}
+.ins ul{margin:10px 0 0;padding-left:16px}
+.ins li{font-size:13px;margin-bottom:4px;color:#2b3747}
+.ins .iw{font-size:12px;color:#6b4a00;background:var(--amberbg);border-radius:8px;padding:8px 10px;margin-top:10px}
+.ins .isrc{font-size:11px;color:#8ea0b8;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
+.disnote{border:1px solid var(--line);border-radius:11px;padding:11px 13px;background:#fbfcfe;margin-bottom:8px}
+.disnote .dn{font-size:13px;font-weight:800;color:var(--blue)}
+.disnote .dt{font-size:12.5px;margin-top:3px;color:#2b3747}
+.disnote .da{font-size:10.5px;color:#8496ad;margin-top:4px;font-weight:700}
+
+/* toast */
+#toast{
+  position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);
+  background:var(--navy);color:#fff;font-size:13px;font-weight:700;
+  padding:11px 18px;border-radius:11px;opacity:0;pointer-events:none;
+  transition:.22s;z-index:99;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:88vw;text-align:center;
+}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+
+footer{
+  text-align:center;font-size:11.5px;color:#8ea0b8;padding:26px 8px 0;line-height:1.8;
+}
+footer b{color:#6b7f99}
+
+/* print */
+@media print{
+  body{background:#fff;font-size:10.5pt}
+  .panel.print-hide{display:none!important}
+  .hero{background:#fff;color:#000;border-bottom:2px solid #000;border-radius:0;padding:0 0 10px}
+  .hero::after{display:none!important}
+  .hero .eyebrow,.hero .chips,.tabs,.btn,.btnrow,#toast,.safari-hint,.quick,.progwrap,.progtx,.no-print{display:none!important}
+  .hero h1{font-size:18pt}.hero .owner{color:#333}
+  .panel{display:block!important}
+  .card{box-shadow:none;border:1px solid #ccc;padding:12px 14px}
+  .ins,.disnote,.ck li,.note,.msg,.jsfallback{page-break-inside:avoid}
+  .card.keep{page-break-inside:avoid}
+  .panel + .panel .sec-tag{page-break-before:always}
+  .sec-tag{box-shadow:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .hero{page-break-after:avoid}
+  .msg{background:#fff;border:1px solid #ccc}
+  .item .body{display:block!important}
+  .item{page-break-inside:avoid}
+  .item .body h4,.card h2,.h3{page-break-after:avoid}
+  .item .arw{display:none}
+  .chips{overflow:visible!important;flex-wrap:wrap;row-gap:5px}
+  th{background:#f4f7fc!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  thead{display:table-header-group}
+  tr,.ins,.disnote,.ck li{page-break-inside:avoid}
+  a{color:#000;text-decoration:none}
+  .wrap{padding-bottom:0}
+}
+</style>
+</head>
+<body>
+<script>document.body.classList.add('js-ready');</script>
+<div class="wrap">
+
+<header class="hero">
+  <div class="hero-in">
+    <span class="eyebrow">TEAM SANG-A · UNDERWRITING FIELD KIT</span>
+    <h1>병력·알릴의무 실무 점검표</h1>
+    <p class="owner">토스인슈어런스 강남2본부 이상아 팀장 전용</p>
+    <div class="chips">
+      <span>오프라인 단일 파일</span>
+      <span>입력값 저장·전송 없음</span>
+      <span>기준일 2026-11-23</span>
+    </div>
+  </div>
+</header>
+
+<div class="safari-hint" role="note">
+  <span class="hi">📱</span>
+  <span><b>계산기·검색·복사 기능은 우측 상단(또는 하단) 공유 버튼 → ‘Safari에서 열기’로 열면 모두 작동해요.</b>
+  <span class="sm">지금 화면은 미리보기라 5개 섹션이 위에서 아래로 모두 펼쳐져 있습니다. 위 탭을 누르면 해당 섹션으로 바로 이동합니다.</span></span>
+</div>
+
+<nav class="tabs" role="tablist" aria-label="도구 메뉴">
+  <a class="tab" role="tab" aria-selected="true" aria-controls="p-calc" href="#p-calc" data-tab="calc"><span class="n">01</span>고지기간 계산기</a>
+  <a class="tab" role="tab" aria-selected="false" aria-controls="p-search" href="#p-search" data-tab="search"><span class="n">02</span>질환·진료 검색</a>
+  <a class="tab" role="tab" aria-selected="false" aria-controls="p-ins" href="#p-ins" data-tab="ins"><span class="n">03</span>보험사별 인수기준</a>
+  <a class="tab" role="tab" aria-selected="false" aria-controls="p-guide" href="#p-guide" data-tab="guide"><span class="n">04</span>고객 안내·방어</a>
+  <a class="tab" role="tab" aria-selected="false" aria-controls="p-source" href="#p-source" data-tab="source"><span class="n">05</span>근거·한계</a>
+</nav>
+
+<main>
+
+<!-- ══════════════ TAB 1 : 계산기 ══════════════ -->
+<section class="panel on" id="p-calc" role="tabpanel">
+<div class="sec-tag"><span class="sn">01</span>고지기간 계산기</div>
+
+  <div class="card">
+    <h2><span class="dot"></span>청약 예정일 입력</h2>
+    <p class="lead">청약일을 기준으로 각 고지기간의 시작일을 계산합니다. 표준약관 기준 <b>‘최근 ○개월 이내’ = 청약일의 ○개월 전일부터 청약일까지</b>입니다(2024.12.20 신설).</p>
+    <div class="row">
+      <div>
+        <label class="fl" for="d0">청약 예정일</label>
+        <input type="date" id="d0">
+      </div>
+      <div>
+        <label class="fl" for="preset">심사 유형</label>
+        <select id="preset">
+          <option value="standard">일반심사(표준 5문항)</option>
+          <option value="315">간편심사 3·1·5</option>
+          <option value="325">간편심사 3·2·5</option>
+          <option value="335">간편심사 3·3·5</option>
+          <option value="355">간편심사 3·5·5</option>
+          <option value="3105">간편심사 3·10·5</option>
+          <option value="305">간편심사 3·0·5 (입원·수술 질문 없음)</option>
+        </select>
+      </div>
+    </div>
+    <div class="quick">
+      <button class="qbtn" data-add="0">오늘</button>
+      <button class="qbtn" data-add="1">내일</button>
+      <button class="qbtn" data-add="7">1주 후</button>
+      <button class="qbtn" data-add="-30">1개월 전</button>
+    </div>
+
+    <div class="dategrid" id="dategrid"><div class="jsfallback">청약 예정일을 입력하면 3개월·1년·2년·3년·5년·10년 구간의 시작일이 여기에 표시됩니다. 이 화면(미리보기)에서는 계산기가 실행되지 않으니 <b>Safari에서 열기</b>로 열어 주세요.</div></div>
+    <div class="rangebar" id="rangebar">청약일 기준 고지기간 구간 안내가 여기에 표시됩니다.</div>
+    <div class="btnrow"><button class="btn ghost" id="copyRange" style="font-size:12.5px;padding:8px 13px">구간 복사</button></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span><span id="ckTitle">일반심사(표준) 체크리스트</span></h2>
+    <p class="lead" id="ckLead"></p>
+    <ul class="ck" id="cklist"><li><div class="jsfallback">심사 유형(일반심사 · 간편심사 3·5·5 등)을 고르면 그 유형의 문항과 실무 포인트가 여기에 표시됩니다. 미리보기에서는 아래 <b>‘유형별 한눈 비교’</b> 표로 구조를 먼저 확인하세요.</div></li></ul>
+    <div class="note blue" style="margin-top:12px">
+      <b>계산 기준 3가지</b><br>
+      ① ‘계속하여 7일 이상 치료 / 30일 이상 투약’은 같은 원인으로 치료 시작 후 완료일까지 <u>실제 받은 일수</u>입니다(중간 공백은 제외).<br>
+      ② 보험료 납입연체로 해지된 계약을 <b>부활(효력회복)</b>하는 경우, 1~5번 문항의 기간은 ‘해지일 이후 ~ 부활 청약일’과 원래 기간 중 <u>짧은 쪽</u>입니다(2023.6.26 신설).<br>
+      ③ 고지 시점은 <b>청약일</b>이고, 위반 여부 판단은 <b>계약 성립 시</b> 기준입니다. 청약 당일 받은 진단도 고지 대상이 될 수 있습니다(대법원 2010다78135).
+    </div>
+  </div>
+
+  <div class="card keep">
+    <h2><span class="dot"></span>유형별 한눈 비교</h2>
+    <p class="lead">가운데 숫자만 입원·수술을 묻는 기간이 달라집니다. 3개월·5년 문항은 대체로 공통입니다.</p>
+    <div class="cmp-wrap">
+      <table class="cmp">
+        <thead>
+          <tr><th>유형</th><th>3개월</th><th>가운데(입원·수술)</th><th>5년</th><th>실무 메모</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>일반심사</b></td><td>진단·의심소견·치료·입원·수술·투약</td><td>—</td><td>입원·수술·7일↑치료·30일↑투약 + 10대질병</td><td>가입 가능하면 가장 저렴</td></tr>
+          <tr><td><b>3·1·5</b></td><td>입원·수술·추가검사 필요소견</td><td>1년 이내</td><td>중대질환 진단·입원·수술</td><td>중증 유병자용, 할증 큼</td></tr>
+          <tr><td><b>3·2·5</b></td><td>〃</td><td>2년 이내</td><td>〃</td><td>금감원 예시의 기본 구조</td></tr>
+          <tr><td><b>3·3·5</b></td><td>〃</td><td>3년 이내</td><td>〃</td><td>중할증 구간</td></tr>
+          <tr><td><b>3·5·5</b></td><td>〃</td><td>5년 이내</td><td>〃</td><td>현재 판매 주류, 경할증</td></tr>
+          <tr><td><b>3·10·5</b></td><td>〃</td><td>10년 이내</td><td>〃</td><td>조건 까다로운 대신 보험료 낮음</td></tr>
+          <tr><td><b>3·0·5</b></td><td>〃</td><td>질문 없음</td><td>〃</td><td>입원·수술 이력 무관 상품</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cmp-m">
+      <div style="font-size:12.5px;color:var(--ink2);margin-bottom:10px">간편심사의 <b>3개월</b> 문항은 ‘입원·수술·추가검사 필요소견’이고, <b>5년</b> 문항은 중대질환 진단·입원·수술로 대체로 공통입니다. 가운데 숫자만 입원·수술을 묻는 기간이 달라집니다.</div>
+      <div class="mrow"><div class="mt">일반심사 <b>(표준 5문항)</b></div><div class="ms">3개월: 진단·의심소견·치료·입원·수술·투약 / 5년: 입원·수술·7일↑치료·30일↑투약 + 10대질병</div><div class="me">가입 가능하면 보험료가 가장 낮음</div></div>
+      <div class="mrow"><div class="mt">3·1·5 → 3·2·5 → 3·3·5</div><div class="ms">입원·수술을 각각 <b>1년 / 2년 / 3년</b> 이내에서 확인</div><div class="me">중증 유병자용 · 할증이 큰 구간</div></div>
+      <div class="mrow"><div class="mt">3·5·5 → 3·10·5</div><div class="ms">입원·수술을 각각 <b>5년 / 10년</b> 이내에서 확인</div><div class="me">3·5·5는 현재 판매 주류, 경할증 · 3·10·5는 조건이 더 까다로운 대신 보험료 낮음</div></div>
+      <div class="mrow"><div class="mt">3·0·5</div><div class="ms">입원·수술 문항 <b>없음</b> (3개월 소견 + 5년 중대질환만)</div><div class="me">입원·수술 이력과 무관하게 가입</div></div>
+    </div>
+    <div class="note amber">
+      <b>주의.</b> 위 표는 구조를 이해하기 위한 정리입니다. 같은 3·5·5라도 5년 문항의 질병 목록(5대·6대·10대), 3개월 문항에 ‘질병확정진단·질병의심소견’이 포함되는지 여부가 보험사·상품마다 다릅니다. <b>실제 판단은 그 상품 청약서 문구로만</b> 하십시오(금감원 2024.6.13 보도자료도 간편보험 질문은 ‘예시’라고 명시).
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════ TAB 2 : 검색 ══════════════ -->
+<section class="panel" id="p-search" role="tabpanel">
+<div class="sec-tag"><span class="sn">02</span>질환·진료 검색</div>
+  <div class="card">
+    <h2><span class="dot"></span>질환·진료별 고지 체크포인트</h2>
+    <p class="lead">질환명·진료명·증상으로 검색하거나 카테고리로 좁혀 보세요. 카드를 누르면 고지 포인트·필요 서류·심사 유의점이 열립니다.</p>
+    <div class="searchwrap">
+      <span class="ic">⌕</span>
+      <input type="text" id="q" placeholder="예: 용종, 갑상선, 도수치료, 고혈압" autocomplete="off" enterkeyhint="search">
+    </div>
+    <div class="chips" id="catbar"></div>
+    <div class="resultcount" id="rcount"></div>
+    <div id="items"><div class="jsfallback">질환·진료 카드 목록은 <b>Safari에서 열기</b>로 열어 검색어를 입력하면 표시됩니다.</div></div>
+    <div class="note amber">
+      <b>공통 원칙.</b> 아래 내용은 표준약관·표준사업방법서와 금감원 분쟁조정 사례를 실무 관점으로 정리한 것입니다. 보험사별 인수기준(부담보·할증·거절)은 다르므로, ‘고지 대상인지’와 ‘인수가 되는지’를 나눠서 확인하십시오.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ TAB 3 : 보험사별 인수기준 ══════════════ -->
+<section class="panel" id="p-ins" role="tabpanel">
+<div class="sec-tag"><span class="sn">03</span>보험사별 인수기준</div>
+
+  <div class="card">
+    <h2><span class="dot"></span>기준일과 확인 범위</h2>
+    <p class="lead">보험사 인수기준은 <b>월 단위로도 바뀝니다.</b> 이 화면은 공시·상품안내·보도로 <u>공개된 내용</u>만 담았고, 각 항목마다 확인 시점과 출처 성격을 붙였습니다.</p>
+    <div class="note blue" id="asofBox">기준일·확인 범위 안내가 여기에 표시됩니다.</div>
+    <div class="note red">
+      <b>반드시 재확인.</b> 각 사 <b>내부 언더라이팅 매뉴얼·전산 심사기준은 대외비</b>이고 수시로 개정됩니다. 여기 적힌 예외질환 수·부담보 기간·할인율은 공개된 시점의 값입니다. 견적·청약 전에 <b>토스인슈어런스 사내 전산과 각 사 담당 매니저 공지</b>로 그 주의 최신 기준을 확인하십시오.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>보험사별 공개 인수기준</h2>
+    <p class="lead">2026년 하반기 기준으로 공개된 간편심사 라인업과 인수 특징입니다. 상단에서 손해보험·생명보험을 골라 볼 수 있습니다.</p>
+    <div class="chips" id="insTypeBar"></div>
+    <div class="resultcount" id="insCount"></div>
+    <div id="insList"><div class="jsfallback">보험사별 공개 인수기준 카드가 여기에 표시됩니다. 미리보기에서는 목록이 실행되지 않으니 <b>Safari에서 열기</b>로 확인해 주세요.</div></div>
+    <div class="note amber">
+      <b>읽는 법.</b> ‘예외질환 개수’는 그 질환이 있어도 <u>조건 없이 인수되는 질병 코드 수</u>입니다. 코드 분류가 회사마다 달라서 <b>개수만으로 우열을 비교할 수 없습니다.</b> 같은 회사 안에서도 상품·고지유형별로 예외 범위가 다릅니다.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>경증질환·단기 진료 — 공개된 예외 사례</h2>
+    <p class="lead">‘이 정도는 넘어가겠지’라고 생각하는 항목이 실제로는 고지 대상인 경우가 많습니다. 공개된 예외·완화 사례만 모았습니다.</p>
+    <div class="disnote"><div class="dn">단기 통원·단순 감기·비염·위염</div><div class="dt">3개월 문항의 <b>‘투약’은 처방 행위 자체</b>라서 청약서에는 ‘예’로 적는 것이 원칙입니다. 인수 단계의 예외는 별개 — 한화생명은 위염 등 600개 경미질환을 조건 없이 즉시 인수, 신한라이프는 장염을 대기 3개월→1개월로 단축.</div><div class="da">2026.2~8 공개 보도 기준</div></div>
+    <div class="disnote"><div class="dn">대장용종·자궁근종 (수술 직후)</div><div class="dt">미래에셋생명은 두 질환을 <b>수술 직후에도</b> 간편심사 예외질환으로 포함. 다른 사는 대개 경과기간을 둡니다.</div><div class="da">2026.8 기준</div></div>
+    <div class="disnote"><div class="dn">백내장</div><div class="dt">미래에셋생명 예외질환 보류기간 3년 → 1년. 한화생명은 경미질환 다발력자 특별인수 사례로 백내장 수술 고객을 제시.</div><div class="da">2026.10~11 기준</div></div>
+    <div class="disnote"><div class="dn">유방양성종양·디스크·척추협착</div><div class="dt">신한라이프는 보장기간 전체가 아닌 <b>일정 기간만 부담보</b>. 한화생명은 척추질환 등 1,600개를 3개월 경과·입원 4일 이하 조건 없이 인수.</div><div class="da">2026.2~8 기준</div></div>
+    <div class="disnote"><div class="dn">치질·제왕절개</div><div class="dt"><b>공개된 사별 예외 기준이 확인되지 않았습니다.</b> 제왕절개는 청약서에 수술로 명시되어 있고, 치질은 실손의 11대 질병(직장·항문) 항목입니다. 사별 심사팀 문의로만 확인 가능.</div><div class="da">2026.11 확인 · 공개 자료 없음</div></div>
+    <div class="note amber"><b>핵심 구분.</b> ①청약서에 <b>고지하는 것</b> ②회사가 <b>인수하는 것</b>은 다른 단계입니다. 예외질환이라도 문항에 해당하면 ‘예’로 적어야 하고, 그 다음에 부담보·할증 없이 받아주는지를 봅니다.</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>질환별로 보기</h2>
+    <p class="lead">질환을 고르면 공개된 보험사별 심사 포인트만 모아 보여줍니다.</p>
+    <select id="disSel"><option>보험사별 질환 심사 포인트 — Safari에서 열기</option></select>
+    <div id="disOut" style="margin-top:12px"></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>자료 업데이트 방법</h2>
+    <p class="lead">본부 공지나 각 사 인수기준표(PDF·텍스트)를 받으면, 이 파일의 <b>맨 위 ‘데이터 영역’ 스크립트 블록</b>만 고치면 됩니다. 화면 코드는 건드리지 않아도 됩니다.</p>
+    <div class="note blue">
+      <b>① 보험사 카드</b> — <code>INSURERS</code> 배열에 한 칸씩 추가<br>
+      <code>{ name:'회사명', type:'손해보험'|'생명보험', asOf:'2026.11', srcType:'공시|보도', lineups:[...], points:[...], watch:[...], src:'출처' }</code>
+    </div>
+    <div class="note blue">
+      <b>② 질환별 포인트</b> — <code>DISEASE_INS</code>에 질환명 키로 추가<br>
+      <code>'질환명': [ { ins:'회사명', txt:'내용', asOf:'2026.11' } ]</code>
+    </div>
+    <div class="note blue">
+      <b>③ 질환·진료 검색기</b> — 같은 블록의 <code>DATA</code> 배열<br>
+      <code>{ cat:'카테고리', name:'이름', tag:['3개월'], kw:'검색어', sm:'한 줄 요약', pts:[...], docs:[...], tip:'현장 팁' }</code>
+    </div>
+    <div class="note amber"><b>기준일 바꾸기</b> — <code>META.asOf</code> 값만 바꾸면 상단 기준일 표시가 함께 바뀝니다.</div>
+  </div>
+</section>
+
+<!-- ══════════════ TAB 4 : 고객 안내 ══════════════ -->
+<section class="panel" id="p-guide" role="tabpanel">
+<div class="sec-tag"><span class="sn">04</span>고객 안내·방어</div>
+
+  <div class="card">
+    <h2><span class="dot"></span>고객에게 보낼 안내 문구</h2>
+    <p class="lead">상담 전 병력 확인용입니다. 카톡·문자에 그대로 붙여 넣을 수 있습니다.</p>
+
+    <div class="h3">① 짧은 버전 (카톡·문자)</div>
+    <div class="msg" id="msg1">고객에게 보낼 짧은 안내 문구가 여기에 표시됩니다. <b>Safari에서 열기</b>로 열면 복사 버튼까지 바로 사용할 수 있습니다.</div>
+    <div class="btnrow"><button class="btn" data-copy="msg1">문구 복사</button></div>
+
+    <div class="h3">② 자세한 버전 (상담 전 안내)</div>
+    <div class="msg" id="msg2">상담 전 자세한 안내 문구가 여기에 표시됩니다. <b>Safari에서 열기</b>로 열면 복사 버튼까지 바로 사용할 수 있습니다.</div>
+    <div class="btnrow"><button class="btn" data-copy="msg2">문구 복사</button></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>본인 조회 경로 (고객용)</h2>
+    <p class="lead">고객이 직접 확인할 수 있는 공식 경로입니다. 화면을 캡처해 보내면 설명이 빠릅니다.</p>
+    <ul class="srclist">
+      <li>
+        <div class="t">내가 먹는 약! 한눈에 — 최근 1년 투약이력</div>
+        <div>건강보험심사평가원 홈페이지 또는 <b>‘건강e음’ 앱</b> → 조회·신청 → ‘내가 먹는 약! 한눈에’ → 본인인증 → 일자별·약국별 조제내역 확인. 만 14세 미만 자녀도 법정대리인이 등록하면 조회됩니다.</div>
+        <div class="u">hira.or.kr / 건강e음 앱</div>
+      </li>
+      <li>
+        <div class="t">내 진료정보 열람 — 최근 5년 진료·처방내역</div>
+        <div>요양급여명세서 기준 진료내역·처방조제 내역을 <b>최대 5년</b>까지 열람. 실시간이 아니어서 <b>최대 3개월 시차</b>가 있을 수 있고, 비급여·선별급여와 병원이 청구하지 않은 내역은 빠질 수 있습니다.</div>
+        <div class="u">hira.or.kr → 조회·신청 → 내 진료정보 열람</div>
+      </li>
+      <li>
+        <div class="t">The건강보험 — 진료내역·건강검진 결과</div>
+        <div>국민건강보험공단 앱·홈페이지에서 본인인증 후 진료받은 내용과 건강검진 결과를 조회. 진료 직후에는 반영이 늦을 수 있습니다.</div>
+        <div class="u">nhis.or.kr / The건강보험 앱</div>
+      </li>
+      <li>
+        <div class="t">병원·약국 직접 발급 (조회로 안 잡히는 것)</div>
+        <div>진료비 세부내역서, 진료확인서, 입·퇴원확인서, 수술확인서, 진단서·소견서, 조직검사 결과지, 건강검진 결과지. 비급여 진료와 도수치료·주사 치료 이력은 이쪽이 정확합니다.</div>
+        <div class="u">해당 의료기관 원무과</div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>구두 고지 방어 체크리스트</h2>
+    <p class="lead">설계사에게 구두로 말한 것만으로는 알릴 의무를 이행한 것으로 인정되지 않습니다. 청약서 기재를 확인하는 절차입니다.</p>
+    <ul class="check" id="defense"><li><div class="jsfallback">구두 고지 방어 체크리스트(10항목)는 <b>Safari에서 열기</b>로 열면 체크·진행률과 함께 표시됩니다.</div></li></ul>
+    <div class="progwrap"><div class="prog" id="prog"></div></div>
+    <div class="progtx" id="progtx">0 / 10 확인</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>상담 메모 만들기</h2>
+    <p class="lead">위 체크리스트와 청약일 계산을 한 장의 기록으로 묶습니다. 복사해서 상담일지·CRM에 붙여 넣으세요.</p>
+    <div class="row">
+      <div><label class="fl" for="cname">고객명 (선택)</label><input type="text" id="cname" placeholder="예: 김O형" autocomplete="off"></div>
+      <div><label class="fl" for="cprod">검토 상품·보험사 (선택)</label><input type="text" id="cprod" placeholder="예: OO생명 간편 3·5·5" autocomplete="off"></div>
+    </div>
+    <div class="btnrow">
+      <button class="btn" id="mknote">메모 생성</button>
+      <button class="btn ghost" onclick="window.print()">인쇄 / PDF 저장</button>
+    </div>
+    <div class="msg" id="noteout" style="display:none;margin-top:12px"></div>
+    <div class="btnrow" id="notebtns" style="display:none"><button class="btn" data-copy="noteout">메모 복사</button></div>
+  </div>
+
+  <div class="note red">
+    <b>개인정보 취급.</b> 이 파일은 입력값을 서버로 보내지 않고 브라우저 안에서만 계산합니다. 다만 고객 성명·병력이 담긴 화면은 캡처·공유에 주의하고, 상담이 끝나면 메모는 사용 중인 CRM 등 정해진 보관 위치에만 두십시오. 공용 PC에서는 저장하지 않는 편이 안전합니다.
+  </div>
+</section>
+
+<!-- ══════════════ TAB 5 : 근거 ══════════════ -->
+<section class="panel" id="p-source" role="tabpanel">
+<div class="sec-tag"><span class="sn">05</span>근거·한계</div>
+
+  <div class="card">
+    <h2><span class="dot"></span>근거 자료와 확인 범위</h2>
+    <p class="lead">2026-11-23 기준으로 확인한 원문·공시 자료입니다. 링크는 외부 사이트로 열립니다.</p>
+    <ul class="srclist">
+      <li>
+        <div class="t">보험사별 간편심사·인수기준 (2026년 하반기 공개 보도)</div>
+        <div>삼성화재 9개 유형·초경증형 경증 상병 예외, 삼성생명 예외질환 6,996개·1만 1,364개와 분리심사, 한화생명 경미질환 1,600/1,100/600개 즉시 인수, 교보생명 복합심사, 신한라이프·미래에셋생명·KB라이프 예외질환 확대, 라이나손보 325(암)·예외질환 세분화, NH농협손보 암레디·뇌심레디, 흥국화재 고당지 7유형, 하나손보 추가질문 4개. 모두 <b>2026.2~11 보도 기준</b>이며 각 사 내규는 비공개.</div>
+        <div class="u"><a href="https://raonnews.com/mobile/article.html?no=62612" target="_blank" rel="noopener">라온뉴스 2026.11.10</a> · <a href="https://www.insweek.co.kr/news/articleView.html?idxno=71976" target="_blank" rel="noopener">보험신보 2026.8.10</a> · <a href="https://www.insweek.co.kr/news/articleView.html?idxno=72643" target="_blank" rel="noopener">보험신보 2026.10.12</a> · <a href="https://www.raonnews.com/news/article.html?no=60823" target="_blank" rel="noopener">라온뉴스 2026.9.4</a> · <a href="https://www.joongang.co.kr/article/25480671" target="_blank" rel="noopener">중앙일보 2026.11.21</a> · <a href="https://www.ibtomato.com/ExternalView.aspx?no=17529&type=1" target="_blank" rel="noopener">IB토마토 2026.2.26</a> · <a href="https://www.g-enews.com/article/Finance/2026/08/202608241545183073a6e8311f64_1" target="_blank" rel="noopener">글로벌이코노믹 2026.8.25</a></div>
+      </li>
+      <li>
+        <div class="t">5세대 실손의료보험 출시 (2026.5.6)</div>
+        <div>보험 16개사(생보 7·손보 9) 판매 개시, 신한EZ손보는 6.1 합류. 기존 1~4세대 가입자는 전환 가능. 유병력자 실손은 별도 심사·자기부담 구조라 일반 실손과 혼동 금지.</div>
+        <div class="u"><a href="https://www.fsc.go.kr/po010103/86831" target="_blank" rel="noopener">금융위원회 2026.5.6 보도자료</a></div>
+      </li>
+      <li>
+        <div class="t">보험업감독업무시행세칙 제5-13조 &lt;부표 1&gt; 계약 전 알릴의무 사항</div>
+        <div>3개월·1년·5년 문항, 10대 질병 목록, ‘질병의심소견/투약/계속하여’ 정의, 부활 시 단축 규정, 설계사 수령권한 없음 문구까지 원문 확인. 개정 이력 2018.7.10 / 2020.7.31 / 2022.9.30 / 2023.6.26 / 2024.3.27 / <b>2024.12.20</b>.</div>
+        <div class="u"><a href="https://govbrief.kr/scan/2200000108939/5-13/" target="_blank" rel="noopener">govbrief.kr/scan/2200000108939/5-13</a></div>
+      </li>
+      <li>
+        <div class="t">질병·상해보험 표준약관 제14조(계약 전 알릴 의무) · 제16조(알릴 의무 위반의 효과)</div>
+        <div>보험업감독업무시행세칙 [별표15] 표준약관(2026-08-28 개정본) 기준. 제16조 ② 각 호의 해지 제한, ⑥ 인과관계, ⑦ 다른 보험 가입내역 미고지 시 해지 불가까지 확인.</div>
+        <div class="u"><a href="https://sonsain.com/knowledge/clauses/health/14" target="_blank" rel="noopener">sonsain.com/knowledge/clauses/health/14</a> · <a href="https://www.fss.or.kr/fss/bbs/B0000115/view.do?menuNo=200504&nttId=207917" target="_blank" rel="noopener">금융감독원 표준약관 게시</a></div>
+      </li>
+      <li>
+        <div class="t">금융감독원 「주요 분쟁사례로 알아보는 소비자 유의사항 — 간편보험(유병자보험)편」 (2024.6.13)</div>
+        <div>일반심사 5문항 vs 간편심사 3문항 비교표, 용종제거=수술, 당일·응급실 입원=입원, 1년 11개월 착각, 갑상선 양성결절 추가검사 소견, 암 진단 6년 전이어도 5년 내 항암 입원은 고지 — 사례별 기준 확인.</div>
+        <div class="u"><a href="https://m.blog.naver.com/fss2009/223484224737" target="_blank" rel="noopener">금융감독원 공식블로그 정리본</a> · <a href="https://eiec.kdi.re.kr/policy/materialView.do?num=252659" target="_blank" rel="noopener">KDI 경제정보센터 보도자료</a></div>
+      </li>
+      <li>
+        <div class="t">금융감독원 「계약 전 알릴의무 관련 유익정보 및 유의사항 — 질병·상해보험편」 (2024.7.2)</div>
+        <div>설계사에게만 말한 고지는 효력이 없다는 안내, 질문표 밖 병력의 취급 기준.</div>
+        <div class="u"><a href="https://eiec.kdi.re.kr/policy/materialView.do?num=253699" target="_blank" rel="noopener">KDI 경제정보센터</a> · <a href="https://www.insnews.co.kr/news/articleView.html?idxno=82191" target="_blank" rel="noopener">한국보험신문 해설</a></div>
+      </li>
+      <li>
+        <div class="t">금융감독원 금융분쟁조정위원회 결정 (2026.7.24 심의, 7.27 발표)</div>
+        <div>이상소견 없이 상태 관찰을 위해 권유한 혈액검사는 ‘추가검사’가 아님 / 신약 임상시험 참여 목적의 병원 체류는 ‘질병으로 인한 입원’이 아님.</div>
+        <div class="u"><a href="https://durugo.co.kr/%ea%b0%84%ed%8e%b8%ec%8b%ac%ec%82%ac%eb%b3%b4%ed%97%98-%eb%b9%84%ea%b5%90/" target="_blank" rel="noopener">사례 정리</a></div>
+      </li>
+      <li>
+        <div class="t">상법 제651조 · 제651조의2 · 제655조 · 제646조의2</div>
+        <div>해지권 행사 기간(안 날 1개월 / 체결일 3년), 서면 질문사항의 ‘중요한 사항’ 추정, 인과관계가 없으면 보험금 지급, 보험대리상의 고지 수령권한(단순 중개자에게는 보험료 수령·증권 교부만).</div>
+        <div class="u"><a href="https://www.law.go.kr/lsLinkCommonInfo.do?lsJoLnkSeq=1026792851" target="_blank" rel="noopener">국가법령정보센터 상법 제651조</a> · <a href="https://sonsain.com/knowledge/law/commercial-651" target="_blank" rel="noopener">조문 해설</a></div>
+      </li>
+      <li>
+        <div class="t">건강보험심사평가원 · 국민건강보험공단 조회 서비스</div>
+        <div>‘내가 먹는 약! 한눈에’(최근 1년 투약이력, 건강e음 앱), ‘내 진료정보 열람’(5년, 최대 3개월 시차, 비급여 제외), 공단 진료내역·검진 결과 조회.</div>
+        <div class="u"><a href="https://www.hira.or.kr/rb/diag/selectMyDiagInfmList.do?pgmid=HIRAA070001000600" target="_blank" rel="noopener">hira.or.kr 내 진료정보 열람</a> · <a href="https://www.gov.kr/portal/service/serviceInfo/PTR000051824" target="_blank" rel="noopener">정부24 내가 먹는 약! 한눈에</a></div>
+      </li>
+      <li>
+        <div class="t">판례·분쟁조정례 (질환별 판단 근거)</div>
+        <div>대법원 2010다78135(청약 당일 진단), 2009다59688(‘계속하여 7일 이상 치료’의 동일 병증 판단), 2006다19672(모집인 고지 수령권 없음), 2011다54631(고의·중과실 입증책임), 2010다39192(질문표 확인으로 설명의무 이행), 2009다103349(경과관찰 결절), 금감원 2009-80·2008-2·2009-30(추적검사·정밀검사 권유는 고지 대상).</div>
+        <div class="u"><a href="https://sonsain.com/knowledge/guide/disclosure-breach" target="_blank" rel="noopener">판례·결정례 정리</a></div>
+      </li>
+      <li>
+        <div class="t">보험사 공시·상품 안내 (간편심사 유형별 문항 차이)</div>
+        <div>삼성화재 THE FIT 간편고지 유형(305·5 ~ 365·5) 안내, 현대해상 355 사례, 생명보험협회 공시실 상품명 표기(335/355/3.10.5) — 같은 숫자라도 5년 질병 목록이 다른 근거.</div>
+        <div class="u"><a href="https://www.samsungfire.com/insurance/html/thefit/thefit_insurance_info_25.html" target="_blank" rel="noopener">삼성화재 THE FIT 안내</a> · <a href="https://www.insvalley.com/mini/board/boardDetail.jsp?board=ingi&board_no=181683" target="_blank" rel="noopener">인스밸리 칼럼</a></div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>정확도 한계 — 이 도구가 하지 않는 것</h2>
+    <div class="note amber">
+      <b>1. 판정하지 않습니다.</b> 이 도구는 ‘고지 대상 여부를 스스로 정리하는 계산·조회 보조’입니다. 인수 여부·부담보·할증·감액을 판정하지 않습니다.
+    </div>
+    <div class="note amber">
+      <b>2. 상품별 문항이 기준입니다.</b> 보험업감독업무시행세칙 제5-13조 ②는 계약 전 알릴의무 사항을 &lt;부표 1&gt;을 표준으로 하되 ‘보험종목별 특성에 따라 일부 사항을 생략·추가·수정’할 수 있게 합니다. 그래서 같은 병력도 A사는 고지 대상, B사는 아닐 수 있습니다.
+    </div>
+    <div class="note amber">
+      <b>3. 간편심사 문항은 회사별로 다릅니다.</b> 3개월 문항에 ‘질병확정진단·질병의심소견’이 포함되는 상품이 있고(2024.12.20 개정 방향), 5년 문항의 질병 목록도 5대·6대·10대로 갈립니다.
+    </div>
+    <div class="note amber">
+      <b>4. 개정이 반영되지 않을 수 있습니다.</b> 표준약관·표준사업방법서는 수시로 개정됩니다(최근 2024.3.27, 2024.12.20, 표준약관 ’25.6.30 시행). 실제 청약 전에는 그 상품의 <b>청약서 문구</b>와 약관을 확인하십시오.
+    </div>
+    <div class="note amber">
+      <b>5. 진료기록 조회에는 시차·누락이 있습니다.</b> 심평원 ‘내 진료정보 열람’은 최대 3개월 시차, 비급여·미청구분 제외. 도수치료·비급여 주사·건강검진 결과는 병원 발급 서류로 확인해야 합니다.
+    </div>
+    <div class="note amber">
+      <b>6. 보험사별 항목은 공개 자료만 담았습니다.</b> 각 사 내부 언더라이팅 매뉴얼·전산 심사기준은 대외비입니다. 이 화면의 예외질환 수·부담보 기간·할인율은 보도·공시로 공개된 시점 값이고, <b>개정 주기가 월 단위로 짧습니다.</b>
+    </div>
+    <div class="note red">
+      <b>최종 확인.</b> 인수 결과는 각 보험사의 전산 심사·언더라이팅 내규에 따릅니다. 애매한 병력은 <b>청약 전에 보험사 심사팀에 사전 문의(가심사)</b>하고 답변을 서면(메일·채팅 캡처)으로 남겨 두십시오. 그 기록이 나중에 고객과 나를 함께 지켜 줍니다.
+    </div>
+    <div class="note blue">
+      <b>참고.</b> 시중 무료 도구(보험슈퍼맨.com 등)는 접속코드로 운영되며, 그 화면의 안내·판정 역시 같은 이유로 공식 심사 결과가 아닙니다. 이 파일은 그런 도구를 대체하려는 것이 아니라, <b>상담 자리에서 바로 꺼내 쓰는 근거·계산·기록 도구</b>입니다.
+    </div>
+  </div>
+
+</section>
+
+</main>
+
+<footer>
+  <b>토스인슈어런스 강남2본부 이상아 팀장 전용</b><br>
+  제작 2026-11-23 · 기준일 2026-11-23 · 기준 자료: 보험업감독업무시행세칙 [별표15] 표준약관(2026-08-28 개정본 확인), [부표1] 계약 전 알릴의무 사항(2024-12-20 개정), 보험사 공개 자료(2026.2~11)<br>
+  이 파일은 오프라인으로 열리며 어떤 입력값도 외부로 전송하지 않습니다.
+</footer>
+
+</div>
+<div id="toast"></div>
+
+<!-- ============================================================
+     ■ 데이터 영역 : 이 블록만 교체하면 화면 내용이 바뀝니다.
+       ① META / INSURERS / DISEASE_INS  — 보험사별 인수기준
+       ② DATA                          — 질환·진료 검색기
+     ============================================================ -->
+<script>
+/* ============================================================
+   ■ 데이터 영역 ① : 보험사별 인수기준 (공개 자료 기준)
+   - 아래 INSURERS 배열과 DISEASE_INS 객체만 교체하면 화면이 바뀝니다.
+   - 새 자료를 받으면 asOf(확인일)와 src(출처)를 반드시 함께 적어 주세요.
+   ============================================================ */
+
+const META = {
+  asOf: '2026-11-23',
+  title: '보험사별 공개 인수기준',
+  note: '각 사 내부 언더라이팅 매뉴얼(전산 심사기준)은 대외비이며 수시로 바뀝니다. 아래는 공시·상품안내·보도로 공개된 내용만 정리한 것이고, 실제 인수는 각 사 전산 심사 결과입니다.'
+};
+
+const INSURERS = [
+  {
+    name: '삼성화재', type: '손해보험', asOf: '2026.11', srcType: '보도·상품공시',
+    lineups: ['간편보험 9개 유형', '3.10.5 새로고침(2607.4)', '365 · 3655 · 365 고당지뇌심', '유병력자 실손'],
+    points: [
+      '간편보험을 9개 유형으로 세분화 — <b>6년 내 입원·수술의 경증 상병에 예외를 둔 초경증형</b>부터 5년 내 5대 질환, 1년 내 5대 질환(중증형)까지.',
+      '3655는 5년 내 <b>당뇨병</b>을 추가로 물어 기존 365보다 보험료가 약 5% 저렴.',
+      '입원·수술이 없는 기간이 길수록 보험료를 깎는 건강고지형 운영(최대 26% 할인).'
+    ],
+    watch: ['9개 유형의 청약서 문항이 각각 다릅니다. 고객 병력에 맞는 유형을 먼저 고른 뒤 견적.', '경증 상병 예외 목록은 내규이므로 심사팀 확인.'],
+    src: '라온뉴스 2026.9.4 / 글로벌이코노믹 2026.8.25 / 삼성화재 3.10.5 새로고침(2607.4) 공시'
+  },
+  {
+    name: '현대해상', type: '손해보험', asOf: '2026.11', srcType: '상품안내·보도',
+    lineups: ['간편한 3·5·5', '간편한 3·10·10 건강보험', '유병력자 실손'],
+    points: [
+      '3·5·5는 5년 내 <b>6대 질병</b>(암·협심증·심근경색·뇌졸중·간경화·심장판막증) 진단·입원·수술을 확인.',
+      '3·10·10은 입원·수술 10년, 3대 질병 진단 10년까지 확인 — 조건이 까다로운 대신 보험료가 낮음.'
+    ],
+    watch: ['상품 세대(2605·2607 등)에 따라 문항이 바뀝니다. 가입 시점 청약서 확인.'],
+    src: '현대해상 상품안내(간편한355) / 파이낸셜뉴스 2024.6.12'
+  },
+  {
+    name: 'DB손해보험', type: '손해보험', asOf: '2026.11', srcType: '상품안내·공시',
+    lineups: ['나에게 맞춘 간편건강보험 2607 (3N5)', '고당지 간편보험', '간편실손(유병력자)'],
+    points: [
+      '3N5 구조 — 3개월 소견 / N(0~5)년 입원·수술 / 5년 6대 질병 진단·입원·수술.',
+      '고혈압·당뇨·고지혈증(고당지) 유무를 추가로 묻고 <b>없으면 보험료 할인</b>하는 유형을 주력으로 운영.'
+    ],
+    watch: ['6대 질병 목록과 할인 폭은 상품별로 다름 — 청약서·상품설명서 확인.'],
+    src: 'DB손해보험 간편건강보험2607 상품안내 / 인스밸리 상품목록(2026.7)'
+  },
+  {
+    name: 'KB손해보험', type: '손해보험', asOf: '2026.11', srcType: '상품안내',
+    lineups: ['The간편건강보험 26.01 (일반심사형·간편심사형)', '3.10.10 슬기로운 간편건강보험 Plus', '유병력자 실손'],
+    points: [
+      '간편 3문항 — 3개월 소견 / 2년 이내 입원·수술 / 5년 이내 암.',
+      '3·10·10은 <b>최근 10년 내 3대 질병(암·심근경색·뇌졸중) 진단</b>까지 확인 — 초경증 유병자용.',
+      '같은 브랜드 안에 일반심사형을 함께 두고 보장·보험료를 비교해 안내.'
+    ],
+    watch: ['일반심사형과 간편심사형의 보장 축소가 없는지 비교 설명 필요.'],
+    src: 'KB The간편건강보험 26.01 상품안내 / 파이낸셜뉴스 2024.6.12'
+  },
+  {
+    name: '메리츠화재', type: '손해보험', asOf: '2026.11', srcType: '상품안내(심의필 확인)',
+    lineups: ['또 걸려도 또 받는 간편한 암보험2607 (305·325·355·3105)', '간편한 3·10·5건강보험', '유병력자 실손'],
+    points: [
+      '암보험에 <b>3.0.5 ~ 3.10.5 네 가지 고지 유형</b>을 함께 운영 — 같은 상품에서 병력 수준별 선택.',
+      '유사암·재진단암·전이암 등 다회 지급 구조라 보장 조건 확인이 필요.'
+    ],
+    watch: ['간편심사는 일반심사보다 보험료가 할증 — 일반심사 가능 여부를 먼저 확인.'],
+    src: '메리츠화재 간편한 암보험2607 안내(준법감시인 심의필 2026-광고-2093호)'
+  },
+  {
+    name: '라이나손해보험', type: '손해보험', asOf: '2026.11', srcType: '보도',
+    lineups: ['325(암) 간편심사형', '유형별 예외질환 세분화'],
+    points: [
+      '<b>325(암)</b>은 5년 내 병력 중 <b>암만</b> 확인 — 3년 전 협심증 스텐트 시술을 받은 사람도 뇌혈관·허혈성심장질환 진단비 가입 가능.',
+      '예외질환을 유형별로 나눠 심사 — 뇌심 유병자 6,491개 / 암·간 유병자 7,388개 / 기본 간편 2,140개.',
+      '뇌·심장 진단비는 가입 후 <b>90일 내 5%, 1년 내 50%만 지급</b>(감액) — 반드시 사전 설명.'
+    ],
+    watch: ['질환별 분리심사 상품은 담보별 감액·한도가 다릅니다.'],
+    src: '라온뉴스 2026.11.10 / 라온뉴스 2026.9.4'
+  },
+  {
+    name: 'NH농협손해보험', type: '손해보험', asOf: '2026.11', srcType: '보도·상품안내',
+    lineups: ['NH헤아림 3.10.5 고당지', 'NH뉴헤아림 3.10.10', '암레디·뇌심레디 플랜', '일반고지형 5.N.5'],
+    points: [
+      '3.10.10에 <b>뇌·심 이력자의 암 보장(암레디)</b>, <b>암 이력자의 뇌·심 보장(뇌심레디)</b> 플랜 운영.',
+      '뇌심레디는 2년 전 자궁경부암·갑상선암 1기 수술 이력자도 60세까지 가입 가능.',
+      '일반고지형에 5.N.5 유형을 업계 최초로 도입, 무사고 기간 할인 최장 15년.'
+    ],
+    watch: ['플랜별 가입 조건·한도가 다르고 개정이 잦습니다.'],
+    src: '라온뉴스 2026.11.10 / 라온뉴스 2026.9.4'
+  },
+  {
+    name: '흥국화재', type: '손해보험', asOf: '2026.11', srcType: '보도',
+    lineups: ['흥Good 고당지 3.10.5 간편종합보험', '유병자 실손'],
+    points: [
+      '고혈압·당뇨·이상지질혈증 보유 여부로 <b>가입 유형을 7개</b>로 나눠 보험료 차등.',
+      '없는 항목 수에 따라 할인 — 하나 없으면 2~6%, 둘 없으면 5~9%, 셋 다 없으면 10%, 뇌심까지 없으면 최대 13%.',
+      '간편보험 가입연령 15~90세로 확대.'
+    ],
+    watch: ['할인율은 요율 개정으로 자주 바뀝니다. 견적 시점 확인.'],
+    src: '중앙일보 2026.11.21 / 라온뉴스 2026.9.4'
+  },
+  {
+    name: '하나손해보험', type: '손해보험', asOf: '2026.11', srcType: '보도',
+    lineups: ['고당지 간편보험 3.10.5 · 3.5.5'],
+    points: [
+      '두 유형 모두 <b>추가 질문 4가지</b>의 답변에 따라 보험료가 달라지는 구조.',
+      '자사 분석으로 간편보험 가입자의 약 86%가 고혈압·당뇨·고지혈증이 없다고 밝힘 — 건강한 가입자가 유병자 요율을 내는 문제를 인정한 사례.'
+    ],
+    watch: ['추가 질문 4항의 실제 문구와 할인 폭은 청약 화면에서 확인.'],
+    src: '라온뉴스 2026.9.4'
+  },
+  {
+    name: '삼성생명', type: '생명보험', asOf: '2026.11', srcType: '보도',
+    lineups: ['간편고지 건강보험(3·10·5 등)', 'New플러스원 건강고지형·일반고지형·간편고지형', '뇌심Pass·암Pass 플랜'],
+    points: [
+      '간편 3.10.5 <b>예외질환 6,996개</b> — 최근 3개월 안에 여러 질환을 고지했거나 입원·반복 수술 이력이 있어도 관련 특약 즉시 인수(2026.8).',
+      '간편심사 예외질환 <b>1만 1,364개</b>로 업계 최다라고 밝힘 — 입원·수술 횟수가 많아도 바로 인수(2026.11).',
+      '<b>분리심사</b> — 갑상선·위·대장·자궁·유방·전립선암은 입원·수술 치료 후 1년, 간·폐·난소암은 2년이 지나면 뇌·심장 보장 22종 가입 가능(뇌심Pass).',
+      '3.2.5 가입이 어려운 뇌·심장 병력도 2년이 넘으면 3.10.5로 가입할 수 있는 예외 기준 운영.',
+      '분리심사로 받는 뇌혈관·허혈성심장질환 진단비는 <b>3.5.5 상품에서 최고 1,000만원</b>까지만 인수.'
+    ],
+    watch: ['예외질환 수·분리심사 한도는 월 단위로 바뀝니다. 본부 공지 재확인.'],
+    src: '보험신보 2026.8.10 / 보험신보 2026.10.12 / 라온뉴스 2026.11.10 / IB토마토 2026.2.26'
+  },
+  {
+    name: '한화생명', type: '생명보험', asOf: '2026.11', srcType: '보도',
+    lineups: ['시그니처 H통합보험(건강가입형·간편가입형)', '실속가득 H통합보험 전용 인수플랜', '암뇌심치료 보장통장'],
+    points: [
+      '경미질환 즉시 인수 대상 확대 — <b>척추질환 등 1,600개 / 상피내암 등 1,100개 / 위염 등 600개</b>, 3개월 경과·입원 4일 이하 같은 조건 없이 인수.',
+      '3년 전 갑상선암으로 수술했어도 <b>최근 2년 추가 치료가 없으면</b> 뇌·심 관련 특약 가입 가능.',
+      '심근경색으로 혈전치료를 받은 고객도 최근 2년 추가 치료가 없으면 암 관련 특약 가입 가능.',
+      '경미질환이 반복된 고객도 요건을 충족하면 <b>3.5.5형</b>으로 가입 허용, 암과 뇌·심혈관은 분리심사.'
+    ],
+    watch: ['일부는 기간 한정 특별인수입니다(예: 경미질환 다발력자). 시행 기간 확인.'],
+    src: 'IB토마토 2026.2.26 / 보험신보 2026.8.10 / 보험신보 2026.10.12'
+  },
+  {
+    name: '교보생명', type: '생명보험', asOf: '2026.11', srcType: '보도',
+    lineups: ['교보K-맞춤건강보험(복합심사형, 2026.6)', '3밸런스보장보험PLUS'],
+    points: [
+      '<b>복합심사</b> — 한 계약 안에서 특약별로 일반심사와 간편심사를 섞어 적용. 고혈압약 복용자도 암진단 특약은 일반심사로 가입해 <b>간편심사 대비 약 16.2% 낮은</b> 보험료 사례.',
+      '복합심사 인수특약은 생명보험협회 <b>6개월 배타적 사용권</b>을 받은 구조.',
+      '설계 단계에서 일반심사 가능 여부를 시스템으로 먼저 확인하도록 해, 불필요하게 높은 간편 요율을 피하게 함.',
+      '3밸런스보장보험PLUS는 치료비 보장개시 시점을 10년 → 5년으로 앞당기고 종형·간편형 추가.'
+    ],
+    watch: ['특약별 심사 결과가 한 번의 청약에서 갈립니다. 설계 화면에서 확인.'],
+    src: '중앙일보 2026.11.21 / 글로벌이코노믹 2026.8.25 / 보험신보 2026.10.12'
+  },
+  {
+    name: '신한라이프', type: '생명보험', asOf: '2026.11', srcType: '보도',
+    lineups: ['통합건강 슈퍼원(건강심사 우량체)', '라이트원(3.10.5)', '고당지알파'],
+    points: [
+      '간편심사 <b>예외질환 1만 개</b> 수준으로 확대, 즉시 인수 조건 완화.',
+      '장염·치주염·요로결석 등 <b>574개는 대기기간 3개월 → 1개월</b>, 537개는 대기 없이 인수(2026.8).',
+      '유방양성종양·요로·방광결석·상과염·추간판질환·척추협착증은 보장기간 전체가 아니라 <b>일정 기간만 부담보</b>.',
+      '고당지알파는 고혈압·당뇨·이상지질혈증·뇌심 이력을 단계별로 확인해 같은 회사 3.10.5(라이트원)보다 2~14% 할인.'
+    ],
+    watch: ['예외질환 목록·부담보 기간은 내규입니다. 코드 단위로 확인.'],
+    src: '보험신보 2026.8.10 / 라온뉴스 2026.11.10 / IB토마토 2026.2.26'
+  },
+  {
+    name: '미래에셋생명', type: '생명보험', asOf: '2026.11', srcType: '보도',
+    lineups: ['M-케어 건강보험(암·뇌심 분리심사)', '355간편고지 고당'],
+    points: [
+      '암 치료 이력자에게 뇌·심장 담보를, 뇌·심장 이력자에게 암 담보를 각각 인수하는 <b>분리심사</b>.',
+      '<b>대장용종과 자궁근종은 수술 직후에도</b> 간편심사 예외질환으로 포함.',
+      '백내장 예외질환 <b>보류기간 3년 → 1년</b>으로 단축.',
+      '고혈압 유병자가 표준체 건강보험에 가입할 때 뇌·심장 담보 할증률 <b>50% → 25%</b>.',
+      '3.5.5에 해당하지 않고 고당 이력도 없으면 보험료를 낮추는 355 고당 유형 운영.'
+    ],
+    watch: ['분리심사·할인 유형은 개정 주기가 짧습니다.'],
+    src: '라온뉴스 2026.11.10 / 보험신보 2026.8.10'
+  },
+  {
+    name: 'KB라이프', type: '생명보험', asOf: '2026.11', srcType: '보도',
+    lineups: ['간편심사 경증 예외질환 확대'],
+    points: [
+      '간편심사 경증 예외질환을 <b>3,635개 → 7,402개</b>로 두 배 확대(2026.2).',
+      '양성종양부터 위장염·호흡기질환·안구질환·근골격계질환·임신 관련 질환까지 폭넓게 포함.'
+    ],
+    watch: ['예외질환 개수는 인수기준 개정 시 함께 바뀝니다.'],
+    src: 'IB토마토 2026.2.26'
+  }
+];
+
+/* 질환별로 공개된 보험사 포인트. 없으면 빈 배열 → 화면에 “공개 자료 없음”으로 표시됩니다. */
+const DISEASE_INS = {
+  '고혈압': [
+    { ins: '미래에셋생명', txt: '표준체 건강보험 가입 시 뇌·심장 담보 할증률 50% → 25%로 인하', asOf: '2026.11' },
+    { ins: '삼성생명', txt: '3.10.5 예외질환 6,996개 — 여러 질환 고지·반복 수술 이력이 있어도 즉시 인수', asOf: '2026.8' },
+    { ins: '흥국화재', txt: '고당지 7개 유형으로 나눠 고혈압 유무에 따라 보험료 차등(없으면 최대 10% 할인)', asOf: '2026.11' },
+    { ins: '신한라이프', txt: '고당지알파 — 고혈압 단계별 확인 후 라이트원 대비 2~14% 할인', asOf: '2026.11' }
+  ],
+  '당뇨병': [
+    { ins: '삼성화재', txt: '3655 유형이 5년 내 당뇨병을 추가로 질문 — 기존 365보다 약 5% 저렴', asOf: '2026.9' },
+    { ins: '미래에셋생명', txt: '355 간편고지 고당 — 고혈압·당뇨 이력이 없으면 보험료 할인', asOf: '2026.11' },
+    { ins: '흥국화재', txt: '고당지 7개 유형, 셋 다 없으면 10%·뇌심까지 없으면 최대 13% 할인', asOf: '2026.11' }
+  ],
+  '고지혈증': [
+    { ins: '미래에셋생명', txt: '고당(고혈압·당뇨만)과 고당지(이상지질혈증까지)를 구분 — 약만 먹는 경우 유형 선택이 유리', asOf: '2026.11' },
+    { ins: '삼성화재·신한라이프', txt: '고당지 유형에서 뇌·심장질환 이력까지 함께 확인 — 고지 범위가 더 넓음', asOf: '2026.11' },
+    { ins: '라이나생명', txt: '종신보험에서 고혈압·고지혈증 인수절차를 한시적으로 완화(서류 대신 고지 내용으로 심사)', asOf: '2026.10' }
+  ],
+  '갑상선': [
+    { ins: '한화생명', txt: '3년 전 갑상선암 수술 후 최근 2년 추가 치료가 없으면 뇌·심 특약 가입 가능', asOf: '2026.8' },
+    { ins: '삼성생명', txt: '뇌심Pass — 갑상선암은 입원·수술 치료 후 1년이 지나면 뇌·심장 보장 22종 가입', asOf: '2026.11' },
+    { ins: 'NH농협손해보험', txt: '뇌심레디 — 2년 전 갑상선암 1기 수술 이력자도 60세까지 뇌·심 진단비 가입', asOf: '2026.11' }
+  ],
+  '용종·내시경': [
+    { ins: '미래에셋생명', txt: '대장용종은 수술 직후에도 간편심사 예외질환으로 포함', asOf: '2026.8' },
+    { ins: '한화생명', txt: '상피내암 등 1,100개 경미질환을 조건 없이 즉시 인수', asOf: '2026.2' },
+    { ins: '삼성생명', txt: '입원·반복 수술 이력이 있어도 예외질환 6,996개 범위면 관련 특약 즉시 인수', asOf: '2026.8' }
+  ],
+  '디스크·척추': [
+    { ins: '한화생명', txt: '척추질환 등 1,600개를 3개월 경과·입원 4일 이하 조건 없이 즉시 인수', asOf: '2026.2' },
+    { ins: '신한라이프', txt: '추간판질환·척추협착증은 보장기간 전체가 아닌 일정 기간만 부담보', asOf: '2026.8' }
+  ],
+  '유방 양성종양': [
+    { ins: '신한라이프', txt: '유방양성종양은 일정 기간만 부담보(전 기간 제외 아님)', asOf: '2026.8' },
+    { ins: 'KB라이프', txt: '양성종양을 포함해 예외질환 7,402개로 확대', asOf: '2026.2' }
+  ],
+  '자궁근종': [
+    { ins: '미래에셋생명', txt: '자궁근종은 수술 직후에도 간편심사 예외질환으로 포함', asOf: '2026.8' }
+  ],
+  '백내장': [
+    { ins: '미래에셋생명', txt: '백내장 예외질환 보류기간 3년 → 1년으로 단축', asOf: '2026.11' },
+    { ins: '한화생명', txt: '경미질환 다발력자(2년 내 7개 이상) 특별인수 사례로 백내장 수술 고객을 제시', asOf: '2026.10' }
+  ],
+  '정신건강': [
+    { ins: '공개 자료 없음', txt: '우울·불안·불면은 보험사별 인수기준이 공개되어 있지 않습니다. 청약 전 해당 사 심사팀 사전 문의(가심사)로만 확인 가능.', asOf: '2026.11' }
+  ],
+  '제왕절개': [
+    { ins: '공개 자료 없음', txt: '제왕절개는 청약서상 수술로 고지 대상이지만, 수술 후 경과기간별 인수 조건은 사별 내규입니다.', asOf: '2026.11' }
+  ]
+};
+
+const DATA = [
+{
+  cat:'호흡기·이비인후', name:'감기·독감·급성 인후염', tag:['3개월'],
+  kw:'감기 독감 인후염 기침 가래 열 몸살 항생제 해열제 진해거담제 급성기관지염 코로나',
+  sm:'3개월 내 처방(투약)이 있으면 표준심사 청약서는 ‘예’ — 대부분 정상 인수',
+  pts:[
+    '표준심사 1번 문항의 <b>투약</b>은 “의사가 약을 처방하는 행위”입니다. 실제로 약을 사지 않았어도 처방전이 나왔으면 ‘예’.',
+    '간편심사는 3개월 내 <b>입원·수술·추가검사 필요소견</b>만 묻는 상품이 많아, 단순 감기 투약은 문항에 걸리지 않는 경우가 많습니다.',
+    '독감·폐렴으로 <b>입원</b>했다면 5년 이내 입원 문항(간편은 2~10년)에 해당합니다.'
+  ],
+  docs:['진료비 세부내역서 또는 진료확인서','처방·조제 내역(약국 또는 건강e음 ‘내가 먹는 약! 한눈에’)'],
+  tip:'“감기로 3개월 안에 약 받은 적 있으세요?”는 실제로 가장 많이 걸리는 질문입니다. ‘예’로 적더라도 인수 결과는 대개 영향이 없으니, 고객이 겁먹지 않게 결과를 분리해서 설명하십시오.'
+},
+{
+  cat:'호흡기·이비인후', name:'비염·알레르기·결막염', tag:['3개월','5년'],
+  kw:'비염 알레르기 결막염 항히스타민 스프레이 코막힘 재채기 알레르기검사 피부반응검사',
+  sm:'3개월 내 투약은 ‘예’ / 30일 이상 연속 투약이면 5년 문항도 확인',
+  pts:[
+    '3개월 내 진단·처방이면 표준심사 1번 문항 ‘예’.',
+    '같은 원인으로 <b>계속하여 30일 이상 투약</b>이면 5년 문항(4번)에도 해당할 수 있습니다. 알레르기약 장기 처방 여부를 확인.',
+    '알레르기 <b>검사</b>는 ‘검사’에 해당. 검사 결과 이상소견으로 추가검사를 했다면 1년 문항도 확인.'
+  ],
+  docs:['처방내역','검사 결과지(해당 시)'],
+  tip:'비염은 관리 질환으로 보고 표준체 인수가 되는 경우가 많지만, 천식 동반 여부에 따라 판단이 달라집니다. “숨찬 적 있으세요?”를 한 번 더 물으십시오.'
+},
+{
+  cat:'호흡기·이비인후', name:'천식·COPD', tag:['3개월','5년','간편주의'],
+  kw:'천식 COPD 만성폐쇄성폐질환 흡입기 스테로이드 기관지확장제 호흡곤란',
+  sm:'3개월 투약 + 5년 7일 이상 치료 동시 확인 / 심사 민감 질환',
+  pts:[
+    '3개월 내 진단·투약은 기본. 흡입기를 상시 사용하면 표준심사 2번(약물 상시 복용)도 확인.',
+    '5년 내 <b>계속하여 7일 이상 치료</b> 또는 입원 이력이 있으면 4번 문항 해당.',
+    '천식은 10대 질병 목록에는 없지만, 인수 심사에서는 민감하게 보는 질환이라 <b>사전 가심사</b>를 권합니다.'
+  ],
+  docs:['진단서 또는 소견서','폐기능검사 결과지','처방내역','입·퇴원확인서(해당 시)'],
+  tip:'최근 1~2년 내 응급실 방문·입원 이력이 있는지가 핵심입니다. “응급실 간 적 있으세요?”로 확인하십시오.'
+},
+{
+  cat:'호흡기·이비인후', name:'폐렴·기관지염 입원', tag:['5년'],
+  kw:'폐렴 기관지염 입원 항생제 링거 응급실 당일입원',
+  sm:'5년 이내 입원 문항 해당 / 당일입원·응급실 입원도 ‘입원’',
+  pts:[
+    '입·퇴원확인서상 <b>당일입원</b>도 청약서상 ‘입원’입니다(금감원 2024.6.13 사례).',
+    '응급실에서 입원 수속을 밟고 치료받은 경우도 입원 기록이 남습니다.',
+    '회복 후 완치 판정이면 인수에 유리하지만, 문항 자체는 ‘예’로 기재해야 합니다.'
+  ],
+  docs:['입·퇴원확인서','진료비 세부내역서','퇴원요약지'],
+  tip:'“입원은 안 했고 링거만 맞았다”는 말이 실제로는 당일입원으로 잡혀 있는 경우가 흔합니다. 건강보험공단 진료내역으로 확인하십시오.'
+},
+{
+  cat:'소화기', name:'위염·역류성식도염·위궤양', tag:['3개월','5년'],
+  kw:'위염 역류성식도염 위궤양 속쓰림 소화제 위내시경 헬리코박터 제균 위산분비억제제 PPI',
+  sm:'3개월 처방은 ‘예’ / 30일 이상 연속 투약이면 5년 문항도',
+  pts:[
+    '3개월 내 위내시경 + 처방이면 ‘진단·검사·투약’ 모두 해당.',
+    '제균 치료(2주)는 통상 30일 미만이라 5년 투약 문항에는 걸리지 않습니다. 다만 위궤양으로 <b>장기 처방</b>이면 확인.',
+    '위내시경에서 <b>용종·점막하종양 제거</b>를 했다면 ‘수술’ 문항으로 넘어갑니다.'
+  ],
+  docs:['위내시경 결과지','조직검사 결과지(해당 시)','처방내역'],
+  tip:'조직검사 결과지에 “만성 위염”만 적혀 있으면 대개 문제 없습니다. “이형성·선종”이 있으면 추적검사 여부를 반드시 확인하십시오.'
+},
+{
+  cat:'소화기', name:'위·대장 내시경 용종 제거', tag:['5년','간편해당'],
+  kw:'용종 폴립 대장내시경 위내시경 점막절제 EMR ESD 조직검사 선종',
+  sm:'내시경 용종제거도 ‘수술’ — 가장 많이 놓치는 항목',
+  pts:[
+    '금감원이 명시한 사례입니다. <b>건강검진 대장내시경 중 용종 제거도 ‘수술’</b>에 해당합니다.',
+    '표준심사는 5년, 간편심사는 2~10년(유형별) 이내 수술 문항에 걸립니다.',
+    '제거일(시술일) 기준으로 기간을 계산하십시오. “검사만 했다”고 기억하는 고객이 많습니다.'
+  ],
+  docs:['내시경 결과지(용종 제거 기재)','조직검사 결과지','진료비 세부내역서(시술 항목 확인)'],
+  tip:'결과지에 ‘polypectomy’ ‘EMR’ ‘용종절제술’이 있으면 수술입니다. 반대로 조직검사만 하고 떼지 않았다면 수술은 아닙니다 — 이 구분이 실무의 핵심입니다.'
+},
+{
+  cat:'소화기', name:'대장 선종·용종 추적검사', tag:['1년','3개월'],
+  kw:'선종 추적검사 정기검사 재검사 대장내시경 1년 주기 감시',
+  sm:'‘추적관찰’은 추가검사 아님 / ‘이상소견 후 재검’은 해당',
+  pts:[
+    '2024.3.27 개정으로 <b>추가검사(재검사)</b>는 “검사 결과 이상소견이 확인되어 더 정확한 진단을 위해 시행한 검사”로 명확해졌습니다.',
+    '병증 치료 없이 유지되는 상태의 <b>정기검사·추적관찰은 제외</b>.',
+    '검진 결과지에 “재검사 필요” “정밀검사 권유”가 적혀 있었다면 3개월(간편)·1년(표준) 문항 검토.'
+  ],
+  docs:['이전 내시경 결과지','이번 검사 결과지','의사 소견(권유 문구 확인)'],
+  tip:'같은 대장내시경이라도 ‘정기 감시’인지 ‘이상소견 후 재검’인지로 결론이 갈립니다. 결과지 문구를 그대로 보관하십시오.'
+},
+{
+  cat:'소화기', name:'치질·치루·항문질환 수술', tag:['5년','간편해당','실손주의'],
+  kw:'치질 치핵 치루 항문 농양 수술 결찰 경화요법',
+  sm:'5년 수술 문항 / 실손은 ‘직장·항문 질환’이 11대 질병',
+  pts:[
+    '수술 이력이면 표준심사 5년 수술 문항 해당.',
+    '실손의료보험 청약서는 10대 질병에 <b>‘직장 또는 항문 관련 질환’</b>을 더한 11대 질병을 묻습니다.',
+    '간편심사는 중대질환 목록에 포함되지 않는 경우가 많아 가입 문턱이 낮습니다.'
+  ],
+  docs:['수술확인서','입·퇴원확인서','진단서(해당 시)'],
+  tip:'실손 청약에서는 이 항목이 의외로 자주 누락됩니다. 실손을 함께 설계할 때는 질문을 따로 확인하십시오.'
+},
+{
+  cat:'소화기', name:'B형·C형간염 보균, 간수치 이상', tag:['3개월','5년'],
+  kw:'B형간염 C형간염 보균 간수치 간기능 AST ALT 지방간 간경화 간염 치료 항바이러스',
+  sm:'간경화는 10대 질병 / 보균 상태는 치료·투약 이력 중심',
+  pts:[
+    '3개월 내 진단·검사·투약은 해당.',
+    '<b>간경화증</b>은 10대 질병입니다. 5년 내 진단·치료·입원·수술·투약이면 5번 문항 해당.',
+    '단순 보균·무증상 지방간은 10대 질병이 아니지만, 항바이러스제 복용 중이면 투약 문항을 확인.'
+  ],
+  docs:['간기능 검사 결과지','바이러스 정량검사','복부초음파·섬유스캔 결과','처방내역'],
+  tip:'“보균자일 뿐”과 “치료 중”은 인수 결과가 크게 다릅니다. 현재 복용약과 최근 간수치를 숫자로 받아 두십시오.'
+},
+{
+  cat:'내분비·대사', name:'고혈압', tag:['3개월','5년','간편비해당'],
+  kw:'고혈압 혈압약 혈압강하제 아모디핀 로사르탄 혈압 수축기 이완기',
+  sm:'10대 질병 — 5년 내 진단·투약이면 고지 / 간편심사는 대상 질병 아님',
+  pts:[
+    '표준심사 5번 문항의 <b>10대 질병</b>에 포함됩니다. 5년 내 진단·치료·투약이 있으면 ‘예’.',
+    '표준심사 2번 문항: 3개월 내 <b>혈압강하제 상시 복용</b>도 별도로 묻습니다.',
+    '간편심사는 5년 중대질환 목록에서 고혈압을 빼는 상품이 대부분이라 가입이 열립니다(3개월 소견만 확인).'
+  ],
+  docs:['진단서 또는 의사소견서','최근 혈압 기록','처방내역(약명·용량)'],
+  tip:'최근 3~6개월 혈압이 안정적이고 합병증이 없으면 표준체 인수가 되는 경우가 많습니다. 혈압 수치를 숫자로 받아 두면 심사 설명이 빨라집니다.'
+},
+{
+  cat:'내분비·대사', name:'당뇨병·당뇨 전단계', tag:['3개월','5년','간편비해당'],
+  kw:'당뇨 당뇨병 혈당 HbA1c 메트포르민 인슐린 당뇨전단계 공복혈당',
+  sm:'10대 질병 — 5년 내 진단·투약 / 합병증 여부가 심사 핵심',
+  pts:[
+    '10대 질병에 포함. 5년 내 진단·치료·투약이면 5번 문항 ‘예’.',
+    '3개월 내 처방·검사는 1번 문항 해당.',
+    '합병증(신증·망막증·신경병증) 유무, 인슐린 사용 여부가 인수 판단을 크게 가릅니다.'
+  ],
+  docs:['공복혈당·HbA1c 결과지','진단서','처방내역','합병증 검사 결과(해당 시)'],
+  tip:'“당뇨 전단계”라는 말만 들은 경우와 “당뇨병 진단”은 다릅니다. 진단서·처방전으로 구분해 확인하십시오.'
+},
+{
+  cat:'내분비·대사', name:'고지혈증·이상지질혈증', tag:['3개월'],
+  kw:'고지혈증 이상지질혈증 콜레스테롤 중성지방 스타틴 LDL',
+  sm:'10대 질병 아님 — 3개월 처방만 확인하면 되는 경우가 대부분',
+  pts:[
+    '고지혈증은 <b>10대 질병 목록에 없습니다.</b> 5년 문항(10대 질병)에는 해당하지 않습니다.',
+    '다만 3개월 내 처방이 있으면 1번 문항(투약)은 ‘예’.',
+    '표준심사 2번 문항(약물 상시 복용)의 예시 약물에 고지혈증약이 직접 열거되지는 않지만, 상품·보험사에 따라 판단이 다를 수 있습니다.'
+  ],
+  docs:['혈액검사 결과지','처방내역'],
+  tip:'“고지혈증은 5년 문항 대상이 아니다”를 정확히 설명하면 고객이 불필요하게 간편심사로 가는 일을 줄일 수 있습니다.'
+},
+{
+  cat:'내분비·대사', name:'갑상선 결절·양성종양', tag:['3개월','1년','간편주의'],
+  kw:'갑상선 결절 양성종양 미세침흡인검사 FNA 초음파 재검 추적검사',
+  sm:'3개월 내 ‘추가검사 필요소견’이 가장 위험한 지점',
+  pts:[
+    '건강검진에서 “갑상선 양성결절, 미세침흡인검사 필요” 소견을 받고 ‘아니오’로 답했다가 <b>계약 해지</b>된 금감원 사례가 있습니다.',
+    '반대로 “경과관찰” 소견만 있고 재검·추적검사 권유가 없었다면 고의·중과실이 부정된 사례(대법원 2009다103349)도 있습니다.',
+    '초음파 <b>재검·추적검사 권유</b>가 결과지에 적혀 있으면 고지 대상으로 보는 결정례가 많습니다.'
+  ],
+  docs:['건강검진 결과지(소견 문구 원문)','갑상선 초음파 결과지','조직검사(미세침흡인) 결과지'],
+  tip:'결과지의 표현이 결론을 바꿉니다. “경과관찰” “추적검사 권유” “재검 필요” 중 어느 문구인지 그대로 확인해 보관하십시오.'
+},
+{
+  cat:'내분비·대사', name:'갑상선기능저하·항진증', tag:['3개월','5년'],
+  kw:'갑상선기능저하 갑상선기능항진 씬지로이드 신지로이드 메티마쥴 레보티록신 호르몬제',
+  sm:'3개월 투약은 기본 / 30일 이상 연속 복용이면 5년 문항도',
+  pts:[
+    '갑상선 호르몬제는 대개 <b>평생 복용</b>이라 3개월 문항은 물론, 같은 원인 30일 이상 투약으로 5년 문항에도 해당할 수 있습니다.',
+    '갑상선암은 별개입니다 — 암 진단은 5년 문항(모든 유형)에 해당.',
+    '기능 이상만 있고 안정적으로 유지되면 표준체 인수가 가능한 경우가 많습니다.'
+  ],
+  docs:['진단서','갑상선기능검사 결과지','처방내역'],
+  tip:'“약만 먹고 있고 수치는 정상”이라는 상태를 수치(TSH·T4)로 확인해 두면 심사 설명이 명확해집니다.'
+},
+{
+  cat:'심혈관', name:'협심증·심근경색', tag:['3개월','5년','간편해당'],
+  kw:'협심증 심근경색 스텐트 관상동맥 혈전용해제 심전도 흉통',
+  sm:'10대 질병이자 간편심사 5년 문항의 핵심 질환',
+  pts:[
+    '10대 질병(협심증·심근경색) — 5년 내 진단·치료·입원·수술·투약.',
+    '간편심사의 5년 문항에도 거의 모든 상품이 포함합니다(5대·6대 질병의 기본).',
+    '스텐트 시술은 ‘수술’로 기재되는 경우가 많아 5년 수술 문항도 함께 확인.'
+  ],
+  docs:['진단서','관상동맥조영술·심전도 결과','수술·시술 확인서','처방내역'],
+  tip:'5년이 지나도 보험사가 예후를 추가로 묻는 경우가 있습니다. 최근 심장내과 진료 이력까지 함께 확인하십시오.'
+},
+{
+  cat:'심혈관', name:'부정맥·심장판막증·심부전', tag:['3개월','5년'],
+  kw:'부정맥 심방세동 심장판막증 판막 심부전 항응고제 와파린 NOAC 심전도',
+  sm:'심장판막증은 10대 질병 / 항응고제 복용은 별도 문항',
+  pts:[
+    '<b>심장판막증</b>은 10대 질병에 포함. 5년 내 진단·치료·투약이면 5번 문항.',
+    '부정맥·심부전은 10대 질병 목록에 없지만, 치료·투약은 3개월 문항에 해당하고 인수 심사에서는 민감하게 봅니다.',
+    '항응고제(와파린 등) 복용 중이면 2번 문항(약물 상시 복용) 확인.'
+  ],
+  docs:['심초음파 결과지','심전도·홀터 결과','처방내역','진단서'],
+  tip:'“가끔 두근거린다”는 증상만 있고 진단을 받은 적이 없으면 고지 대상이 아닐 수 있습니다. 진단 여부를 정확히 구분하십시오.'
+},
+{
+  cat:'심혈관', name:'뇌졸중·뇌출혈·뇌경색', tag:['3개월','5년','간편해당'],
+  kw:'뇌졸중 뇌출혈 뇌경색 중풍 혈전 재활 항혈전제',
+  sm:'10대 질병 / 간편심사도 반드시 확인하는 질환',
+  pts:[
+    '10대 질병. 5년 내 진단·치료·입원·수술·투약 모두 문항 대상.',
+    '간편심사 5년 문항에 거의 모든 상품이 포함합니다.',
+    '재활치료가 계속되면 <b>계속하여 7일 이상 치료</b>·30일 이상 투약에도 해당.'
+  ],
+  docs:['진단서','뇌MRI·CT 결과지','입·퇴원확인서','처방내역'],
+  tip:'발병 시점과 현재 후유증 정도가 핵심입니다. 5년이 지났더라도 후유증·재활 이력이 있으면 심사에서 확인됩니다.'
+},
+{
+  cat:'근골격·통증', name:'허리디스크·목디스크·도수치료', tag:['3개월','5년'],
+  kw:'디스크 허리디스크 목디스크 도수치료 물리치료 신경차단술 주사 MRI 협착',
+  sm:'7일 이상 치료 문항에 자주 걸림 / 도수치료는 ‘치료’',
+  pts:[
+    '도수치료·물리치료·주사 치료는 <b>‘치료’</b>에 해당합니다. 3개월 내 시행이면 1번 문항 ‘예’.',
+    '같은 원인으로 <b>계속하여 7일 이상 치료</b>를 받았다면 5년 문항(4번) 해당. 도수치료는 10회 이상 묶음 처방이 흔합니다.',
+    'MRI 촬영을 위한 <b>당일입원</b>도 입원 문항에 해당합니다(금감원 사례).'
+  ],
+  docs:['MRI·CT 결과지','진료비 세부내역서(도수치료 항목)','처방·치료 내역','입·퇴원확인서(해당 시)'],
+  tip:'“주사 맞고 물리치료 받은 것뿐”이 실제로는 7일 이상 치료에 해당하는 경우가 많습니다. 치료 기간을 일수로 확인하십시오.'
+},
+{
+  cat:'근골격·통증', name:'골절·인대파열·관절수술', tag:['5년'],
+  kw:'골절 인대 파열 십자인대 회전근개 관절경 수술 깁스 석고',
+  sm:'상해 — 5년 내 입원·수술 이력 확인',
+  pts:[
+    '상해로 인한 입원·수술도 질병과 동일하게 5년 문항에 해당합니다(간편은 2~10년).',
+    '관절경·내시경 수술은 ‘수술’로 기재. 단순 도수정복·깁스는 통상 입원 여부로 판단.',
+    '수술 후 완치 판정이면 인수에 유리하나, 문항은 ‘예’로 기재.'
+  ],
+  docs:['수술확인서','입·퇴원확인서','영상(MRI·X-ray) 결과지','진단서'],
+  tip:'“뼈 붙고 다 나았다”는 말은 문항을 없애지 않습니다. 수술일 기준 5년을 정확히 계산하십시오.'
+},
+{
+  cat:'여성·비뇨', name:'유방 양성종양·섬유선종', tag:['3개월','1년'],
+  kw:'유방 섬유선종 양성종양 유방초음파 맘모그래피 조직검사 재검',
+  sm:'3개월 내 진단·재검 권유 여부 / 유방암과 구분',
+  pts:[
+    '3개월 내 진단·검사·조직검사는 1번 문항 해당.',
+    '결과지에 <b>“유방초음파 재검 권유”</b>가 적혀 있었다면 고지 대상으로 본 결정례가 있습니다(금감원 2008-2).',
+    '유방암은 별개로 5년 중대질환 문항(간편 포함)에 해당.'
+  ],
+  docs:['유방초음파·맘모그래피 결과지','조직검사 결과지','진단서(해당 시)'],
+  tip:'“의사가 괜찮다고 했다”는 말만으로는 부족합니다. 결과지의 권유 문구가 기준이므로 서류를 직접 보십시오.'
+},
+{
+  cat:'여성·비뇨', name:'자궁근종·난소낭종·자궁경부', tag:['3개월','5년'],
+  kw:'자궁근종 난소낭종 자궁경부 이형성 원추절제 복강경 하이픈 자궁내막증',
+  sm:'수술 여부·조직검사 결과로 갈림',
+  pts:[
+    '복강경·하이픈 수술을 했다면 5년 수술 문항 해당.',
+    '자궁경부 이형성으로 원추절제(콘화)를 했다면 수술 이력 + 5년 내 치료 이력.',
+    '경과관찰만 하는 근종·낭종은 3개월 내 진단·검사 문항만 확인.'
+  ],
+  docs:['수술확인서','조직검사 결과지','초음파 결과지','입·퇴원확인서(해당 시)'],
+  tip:'“수술 없이 지켜보는 중”이면 5년 수술 문항은 해당하지 않습니다. 다만 추적검사가 계속되면 3개월·1년 문항을 확인하십시오.'
+},
+{
+  cat:'여성·비뇨', name:'제왕절개·출산', tag:['5년'],
+  kw:'제왕절개 출산 분만 자연분만 산후조리',
+  sm:'청약서에 ‘수술(제왕절개 포함)’으로 명시 — 반드시 고지',
+  pts:[
+    '표준·간편 청약서 모두 <b>“수술(제왕절개 포함)”</b>이라고 명시합니다.',
+    '출산일 기준으로 5년(간편은 유형별 1~10년)을 계산합니다.',
+    '자연분만은 통상 ‘수술’에 해당하지 않지만, 3개월 내 입원·투약 문항은 확인.'
+  ],
+  docs:['출산 기록(입·퇴원확인서)','수술확인서(제왕절개)'],
+  tip:'육아로 바쁜 고객이 “출산은 병이 아니다”라고 생각해 누락하는 대표 사례입니다. 가입 전 반드시 물으십시오.'
+},
+{
+  cat:'정신건강', name:'우울증·불안·불면·공황', tag:['3개월','5년'],
+  kw:'우울증 불안장애 공황장애 불면증 정신건강의학과 신경정신과 수면제 항우울제 신경안정제',
+  sm:'3개월 진단·투약 + ‘신경안정제·수면제 상시 복용’ 별도 문항',
+  pts:[
+    '3개월 내 진단·투약이면 1번 문항 해당.',
+    '표준심사 2번 문항이 <b>신경안정제·수면제 등 약물 상시 복용</b>을 따로 묻습니다.',
+    '5년 내 7일 이상 치료·입원 이력이 있으면 4번 문항도 확인. 간편심사는 상품별로 별도 문항을 두기도 합니다.'
+  ],
+  docs:['진단서 또는 소견서','처방내역(약명·복용기간)','입·퇴원확인서(해당 시)'],
+  tip:'심리상담만 받고 진단·처방이 없으면 고지 대상이 아닌 경우가 많습니다(청약서에서 묻지 않은 심리검사는 대상 아님 — 금감원 2011-18). 진단·처방 여부로 구분하십시오.'
+},
+{
+  cat:'종양·암', name:'암 진단·치료 이력', tag:['5년','간편해당'],
+  kw:'암 항암 방사선 수술 재발 갑상선암 유방암 대장암 폐암 백혈병',
+  sm:'진단만으로 고지 / 간편심사도 암은 반드시 확인',
+  pts:[
+    '5년 내 <b>진단·입원·수술 중 하나라도</b> 있으면 고지. 7년 전 진단이라도 5년 내 항암 치료로 입원했다면 대상(금감원 사례).',
+    '치료를 시작하지 않았어도 <b>진단만 받았으면</b> 고지 대상(폐암 진단 후 미치료 사례).',
+    '백혈병은 혈액암의 일종으로 ‘암’에 포함됩니다. 간편심사 5년 문항에도 암은 거의 모든 상품이 포함.'
+  ],
+  docs:['진단서','병리·조직검사 결과지','수술·항암·방사선 치료 확인서','입·퇴원확인서'],
+  tip:'암 이력은 간편심사로도 가입이 어려운 경우가 많습니다. 완치 후 경과(5년·10년)에 따라 상품이 갈리므로 <b>사전 가심사</b>가 필수입니다.'
+},
+{
+  cat:'수술·입원', name:'백내장·녹내장·안과 수술', tag:['5년'],
+  kw:'백내장 녹내장 라식 라섹 안과 수술 인공수정체 망막',
+  sm:'수술 문항 해당 여부 + 시력교정술은 별도 취급',
+  pts:[
+    '백내장·녹내장 수술은 5년 수술 문항에 해당할 수 있습니다.',
+    '라식·라섹 등 시력교정술은 상품·보험사에 따라 별도 문항 또는 인수 조건이 다릅니다.',
+    '3개월 내 진단·검사·처방은 기본 확인.'
+  ],
+  docs:['수술확인서','진단서','진료비 세부내역서'],
+  tip:'고령 고객에서 백내장 수술은 흔합니다. “눈 수술은 병이 아니다”라고 넘기지 말고 수술 문항으로 정리하십시오.'
+},
+{
+  cat:'검진·기타', name:'건강검진 이상소견·재검 통보', tag:['3개월','1년'],
+  kw:'건강검진 재검 통보 이상소견 판정 소견 추적검사 정밀검사 국가검진',
+  sm:'결과지 문구가 결론을 바꿈 — ‘경과관찰’ vs ‘재검·정밀검사’',
+  pts:[
+    '3개월 내 <b>추가검사(재검사) 필요소견</b>이면 고지. 건강검진 결과지도 소견서에 준해 봅니다.',
+    '“경과관찰”만 있으면 고의·중과실이 부정된 사례가 있고, “재검·정밀검사 권유”가 있으면 위반으로 본 사례가 많습니다.',
+    '이상소견이 없고 재검 소견도 없는 단순 검진 결과(예: 고콜레스테롤)는 질문표상 대상이 아닌 경우가 있습니다.'
+  ],
+  docs:['건강검진 결과지(판정·소견 문구 전체)','재검·정밀검사 결과지','진단서(해당 시)'],
+  tip:'결과지 첫 장의 “판정”만 보지 말고 <b>소견·권고사항</b>란을 보십시오. 고지 판단은 그 문구에서 갈립니다.'
+},
+{
+  cat:'검진·기타', name:'결핵·B형간염 등 법정감염병 치료', tag:['3개월','5년'],
+  kw:'결핵 잠복결핵 감염병 치료 격리 입원 항결핵제',
+  sm:'치료 기간이 길어 7일·30일 문항에 걸리기 쉬움',
+  pts:[
+    '항결핵제 치료는 수개월간 이어져 <b>계속하여 30일 이상 투약</b> 문항에 해당합니다.',
+    '입원 치료를 했다면 5년 입원 문항도 확인.',
+    '완치 판정 후에는 인수에 유리하지만 문항은 ‘예’.'
+  ],
+  docs:['진단서','치료·처방 내역(기간)','입·퇴원확인서(해당 시)'],
+  tip:'“잠복결핵 치료”와 “결핵 치료”는 기간·인수 판단이 다릅니다. 진단명과 치료 기간을 함께 받으십시오.'
+}
+];
+</script>
+
+<script>
+(function(){
+"use strict";
+
+/* ───────── utils ───────── */
+var $ = function(s){ return document.querySelector(s); };
+var $$ = function(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); };
+var WD = ['일','월','화','수','목','금','토'];
+
+function shift(base, months){
+  var y = base.getFullYear(), m = base.getMonth(), d = base.getDate();
+  var t = new Date(y, m - months, 1);
+  var last = new Date(t.getFullYear(), t.getMonth()+1, 0).getDate();
+  t.setDate(Math.min(d, last));
+  return t;
+}
+function fmt(d){
+  if(!d || isNaN(d)) return '—';
+  return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate());
+}
+function fmtK(d){
+  if(!d || isNaN(d)) return '—';
+  return (d.getMonth()+1) + '월 ' + d.getDate() + '일 (' + WD[d.getDay()] + ')';
+}
+function pad(n){ return (n<10?'0':'') + n; }
+function days(a,b){ return Math.round((b-a)/86400000); }
+function todayISO(){
+  var t = new Date();
+  return t.getFullYear() + '-' + pad(t.getMonth()+1) + '-' + pad(t.getDate());
+}
+function toast(msg){
+  var el = $('#toast');
+  el.textContent = msg; el.classList.add('on');
+  clearTimeout(el._t);
+  el._t = setTimeout(function(){ el.classList.remove('on'); }, 1900);
+}
+function copyText(txt, btn){
+  var ok = function(){
+    toast('복사되었습니다');
+    if(btn){
+      var old = btn.textContent;
+      btn.classList.add('done'); btn.textContent = '✓ 복사됨';
+      setTimeout(function(){ btn.classList.remove('done'); btn.textContent = old; }, 1600);
+    }
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(ok, function(){ legacy(); });
+  } else { legacy(); }
+  function legacy(){
+    var ta = document.createElement('textarea');
+    ta.value = txt;
+    ta.setAttribute('readonly','');
+    ta.style.position = 'fixed'; ta.style.top = '-1000px'; ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select(); ta.setSelectionRange(0, txt.length);
+    var done = false;
+    try { done = document.execCommand('copy'); } catch(e){}
+    document.body.removeChild(ta);
+    if(done){ ok(); } else { toast('복사가 막혔습니다. 길게 눌러 선택해 주세요'); }
+  }
+}
+
+/* ───────── tabs ─────────
+   탭은 <a href="#p-..."> 앵커라서 JS가 막힌 미리보기에서도 섹션 이동이 됩니다.
+   JS가 켜진 상태(js-ready)에서는 앵커 기본 동작을 막고 단일 탭 전환으로 처리합니다. */
+function selectTab(name, doScroll){
+  $$('.tab').forEach(function(x){
+    x.setAttribute('aria-selected', x.getAttribute('data-tab') === name ? 'true' : 'false');
+  });
+  $$('.panel').forEach(function(p){ p.classList.remove('on'); });
+  var el = document.getElementById('p-' + name);
+  if(el){ el.classList.add('on'); }
+  if(doScroll){ window.scrollTo({ top: 0, behavior: 'smooth' }); }
+}
+$$('.tab').forEach(function(t){
+  t.addEventListener('click', function(e){
+    if(!document.body.classList.contains('js-ready')){ return; }  /* 미리보기: 앵커 이동에 맡김 */
+    e.preventDefault();
+    selectTab(t.getAttribute('data-tab'), true);
+  });
+});
+/* 주소 끝에 #p-... 가 붙어 있으면 그 탭으로 시작 */
+if(location.hash && /^#p-/.test(location.hash)){
+  selectTab(location.hash.slice(3), false);
+}
+
+/* 인쇄·PDF는 지금 보고 있는 탭만 출력 */
+window.addEventListener('beforeprint', function(){
+  var active = document.querySelector('.panel.on');
+  $$('.panel').forEach(function(p){ p.classList.toggle('print-hide', p !== active); });
+});
+window.addEventListener('afterprint', function(){
+  $$('.panel').forEach(function(p){ p.classList.remove('print-hide'); });
+});
+
+/* ═══════════ TAB 1 : calculator ═══════════ */
+var PRESETS = {
+  standard: {
+    title: '일반심사(표준 5문항) 체크리스트',
+    lead: '표준사업방법서 <부표1> 기준 5개 문항입니다. 3개월 문항은 ‘투약(처방)’까지 포함하므로 감기약 처방도 ‘예’에 해당합니다.',
+    items: [
+      { m:3, q:'의사로부터 진찰·검사(건강검진 포함)를 통해 <b>질병확정진단·질병의심소견·치료·입원·수술(제왕절개 포함)·투약</b>을 받은 사실',
+        act:'하나라도 있으면 ‘예’ + 병명·치료기간·치료내용·병원·재발경험·완치여부 기재. 단순 감기·장염도 문항상 ‘예’이나 대부분 정상 인수.' },
+      { m:3, q:'<b>마약 사용</b> 또는 <b>혈압강하제·신경안정제·수면제·각성제(흥분제)·진통제 등 약물 상시 복용</b>',
+        act:'‘상시 복용’이 기준. 고혈압약·수면제·진통제를 꾸준히 먹고 있으면 해당. 복용 시작일·약명·용량 확인.' },
+      { m:12, q:'의사로부터 진찰·검사를 받고 <b>추가검사(재검사)</b>를 받은 사실',
+        act:'이상소견 확인 후 더 정확한 진단을 위한 검사만 해당. 병증 치료 없이 유지되는 상태의 정기검사·추적관찰은 제외(2024.3.27 명확화).' },
+      { m:60, q:'<b>입원·수술(제왕절개 포함)·계속하여 7일 이상 치료·계속하여 30일 이상 투약</b>',
+        act:'당일입원·응급실 입원도 ‘입원’. 내시경 용종제거는 ‘수술’. ‘계속하여’는 같은 원인으로 실제 받은 일수의 합.' },
+      { m:60, q:'<b>10대 질병</b>(암·백혈병·고혈압·협심증·심근경색·심장판막증·간경화증·뇌졸중증·당뇨병·에이즈/HIV)으로 <b>진단·치료·입원·수술·투약</b>',
+        act:'실손의료보험은 ‘직장 또는 항문 관련 질환’을 더한 <b>11대 질병</b>이 고지 대상. 고지혈증·갑상선질환은 10대 질병이 아님.' }
+    ]
+  },
+  '315': { title:'간편심사 3·1·5 체크리스트', n:1, med:'5년', lead:'3개월 소견 + 1년 이내 입원·수술 + 5년 중대질환. 중증 유병자에게 열려 있는 대신 할증이 가장 큰 편입니다.' },
+  '325': { title:'간편심사 3·2·5 체크리스트', n:2, med:'5년', lead:'금감원이 예시로 든 기본 구조입니다(3개월·2년·5년).' },
+  '335': { title:'간편심사 3·3·5 체크리스트', n:3, med:'5년', lead:'3년 이내 입원·수술이 없으면 검토. 중할증 구간입니다.' },
+  '355': { title:'간편심사 3·5·5 체크리스트', n:5, med:'5년', lead:'현재 가장 많이 판매되는 구조입니다. 5년 이내 입원·수술이 없어야 하므로 조건은 까다롭지만 보험료가 낮습니다.' },
+  '3105':{ title:'간편심사 3·10·5 체크리스트', n:10, med:'5년', lead:'입원·수술을 10년까지 봅니다. 조건이 어려운 대신 보험료가 더 낮습니다.' },
+  '305': { title:'간편심사 3·0·5 체크리스트', n:0, med:'5년', lead:'입원·수술 문항이 없는 구조입니다. 3개월 소견과 5년 중대질환이 핵심입니다.' }
+};
+
+function simpleItems(p){
+  var out = [];
+  out.push({
+    m:3,
+    q:'의사로부터 <b>입원 필요소견 · 수술 필요소견 · 추가검사(재검사) 필요소견</b>을 받은 사실 <span style="color:#6b7f99">(+ 개정 방향: <b>질병확정진단·질병의심소견</b> 포함 상품 다수)</span>',
+    act:'‘필요소견’은 진단서·소견서를 발급받은 경우뿐 아니라, 의사가 진료기록부 등에 기재하고 환자에게 설명·권유한 경우도 포함됩니다. 건강검진 결과지의 “재검사 권유”도 여기 해당.'
+  });
+  if(p.n > 0){
+    out.push({
+      m: p.n*12,
+      q:'질병 또는 상해로 <b>입원</b>하거나 <b>수술(제왕절개 포함)</b>을 받은 사실',
+      act:'기준일은 마지막 입원일·수술일. ‘2년 지난 줄 알았다’는 착각도 고지의무 위반입니다(금감원 사례: 1년 11개월 전 입원).'
+    });
+  }
+  out.push({
+    m:60,
+    q:'<b>중대질환</b>으로 <b>진단·입원·수술</b>을 받은 사실 — 질병 목록은 상품별로 다름',
+    act:'금감원 예시: 암·간경화증·투석 중인 만성신장질환·파킨슨병·루게릭병 / 보험사에 따라 암·협심증·심근경색·뇌졸중·심장판막증(5대) 또는 간경화 포함 6대. <b>청약서 목록을 직접 읽어야 합니다.</b>'
+  });
+  return out;
+}
+
+var dEl = $('#d0'), presetEl = $('#preset'), lastRange = '';
+
+function render(){
+  var v = dEl.value;
+  var base = v ? new Date(v + 'T00:00:00') : new Date(todayISO() + 'T00:00:00');
+  if(isNaN(base)) base = new Date();
+
+  var d3 = shift(base,3), d12 = shift(base,12), d24 = shift(base,24),
+      d36 = shift(base,36), d60 = shift(base,60), d120 = shift(base,120);
+
+  $('#dategrid').innerHTML =
+    box('최근 3개월', d3, base, true) +
+    box('최근 1년', d12, base, false) +
+    box('최근 5년', d60, base, true) +
+    box('최근 2년', d24, base, false) +
+    box('최근 3년', d36, base, false) +
+    box('최근 10년', d120, base, false);
+
+  $('#rangebar').innerHTML =
+    '청약일 <b>' + fmt(base) + ' ' + fmtK(base) + '</b> 기준 · ' +
+    '3개월은 <b>' + fmt(d3) + '</b>부터, 1년은 <b>' + fmt(d12) + '</b>부터, 5년은 <b>' + fmt(d60) + '</b>부터 청약일까지입니다.';
+
+  var key = presetEl.value;
+  var p = PRESETS[key];
+  var items = (key === 'standard') ? p.items : simpleItems(p);
+
+  $('#ckTitle').textContent = p.title;
+  $('#ckLead').textContent = p.lead || '';
+
+  var html = '';
+  items.forEach(function(it, i){
+    var from = shift(base, it.m);
+    var span = it.m % 12 === 0 ? (it.m/12) + '년' : it.m + '개월';
+    html += '<li>' +
+      '<div class="top"><div class="num">' + (i+1) + '</div>' +
+      '<div><div class="q">' + it.q + '</div></div></div>' +
+      '<div class="meta">확인 구간 · <b>' + fmt(from) + '</b> ~ <b>' + fmt(base) + '</b> (' + span + ' · ' + days(from, base) + '일)</div>' +
+      '<div class="act">' + it.act + '</div>' +
+    '</li>';
+  });
+  if(key === '305'){
+    html += '<li class="noq"><div class="top"><div class="num">–</div><div><div class="q">입원·수술 문항 없음</div></div></div>' +
+      '<div class="meta">이 유형은 입원·수술 이력을 묻지 않습니다. 다만 3개월 소견·5년 중대질환 문항은 그대로 적용됩니다.</div></li>';
+  }
+  $('#cklist').innerHTML = html;
+
+  lastRange = '[' + p.title.replace(' 체크리스트','') + '] 청약일 ' + fmt(base) + '\n' +
+    '- 최근 3개월: ' + fmt(d3) + ' ~ ' + fmt(base) + '\n' +
+    '- 최근 1년: ' + fmt(d12) + ' ~ ' + fmt(base) + '\n' +
+    '- 최근 2년: ' + fmt(d24) + ' ~ ' + fmt(base) + '\n' +
+    '- 최근 3년: ' + fmt(d36) + ' ~ ' + fmt(base) + '\n' +
+    '- 최근 5년: ' + fmt(d60) + ' ~ ' + fmt(base) + '\n' +
+    '- 최근 10년: ' + fmt(d120) + ' ~ ' + fmt(base) + '\n' +
+    '(청약일의 N개월 전일부터 청약일까지 기준 · 표준약관)';
+}
+function box(k, from, base, hi){
+  return '<div class="dbox' + (hi?' hi':'') + '">' +
+    '<div class="k">' + k + '</div>' +
+    '<div class="v">' + fmt(from) + '</div>' +
+    '<div class="s">' + fmtK(from) + ' · ' + days(from, base) + '일 전</div>' +
+  '</div>';
+}
+
+if(dEl){ dEl.value = todayISO(); }
+if(dEl){
+  dEl.addEventListener('change', render);
+  dEl.addEventListener('input', render);
+  presetEl.addEventListener('change', render);
+  $('#copyRange').addEventListener('click', function(){ copyText(lastRange, this); });
+  $$('.qbtn').forEach(function(b){
+    b.addEventListener('click', function(){
+      var n = parseInt(b.getAttribute('data-add'), 10);
+      var t = new Date(todayISO() + 'T00:00:00');
+      t.setDate(t.getDate() + n);
+      dEl.value = t.getFullYear() + '-' + pad(t.getMonth()+1) + '-' + pad(t.getDate());
+      render();
+    });
+  });
+  render();
+}
+
+/* ═══════════ TAB 2 : data ═══════════ */
+/* DATA 배열은 상단의「데이터 영역」스크립트 블록에 있습니다. */
+
+
+/* tags render */
+var catSel = '전체';
+var CATS = ['전체'];
+DATA.forEach(function(d){ if(CATS.indexOf(d.cat) < 0) CATS.push(d.cat); });
+
+(function buildCats(){
+  var bar = $('#catbar');
+  bar.innerHTML = CATS.map(function(c){
+    return '<button class="chip' + (c===catSel?' on':'') + '" data-cat="' + c + '">' + c + '</button>';
+  }).join('');
+  bar.addEventListener('click', function(e){
+    var b = e.target.closest('.chip'); if(!b) return;
+    catSel = b.getAttribute('data-cat');
+    $$('.chip', bar).forEach(function(x){ x.classList.remove('on'); });
+    b.classList.add('on');
+    renderItems();
+  });
+})();
+
+function tagHTML(t){
+  var map = {'3개월':'bd3','1년':'bd1','5년':'bd5','간편해당':'bdE','간편비해당':'bdE','간편주의':'bdW','실손주의':'bdW'};
+  return '<span class="bd ' + (map[t]||'bdN') + '">' + t + '</span>';
+}
+
+function renderItems(){
+  var q = ($('#q').value || '').trim().toLowerCase();
+  var out = [];
+  DATA.forEach(function(d, i){
+    var hay = (d.name + ' ' + d.kw + ' ' + d.cat + ' ' + d.sm).toLowerCase();
+    if(catSel !== '전체' && d.cat !== catSel) return;
+    if(q && hay.indexOf(q) < 0) return;
+    out.push({d:d, i:i});
+  });
+  $('#rcount').textContent = out.length + '개 항목' + (q ? ' · "' + q + '"' : '') + (catSel!=='전체' ? ' · ' + catSel : '');
+  if(!out.length){
+    $('#items').innerHTML = '<div class="note blue">검색 결과가 없습니다. 다른 단어로 찾아보시거나 카테고리 전체를 선택해 주세요.</div>';
+    return;
+  }
+  $('#items').innerHTML = out.map(function(o){
+    var d = o.d;
+    return '<div class="item" data-i="' + o.i + '">' +
+      '<button type="button">' +
+        '<div class="ih"><div>' +
+          '<div class="nm">' + d.name + '</div>' +
+          '<div class="tags">' + d.tag.map(tagHTML).join('') + '<span class="bd bdN">' + d.cat + '</span></div>' +
+          '<div class="sm">' + d.sm + '</div>' +
+        '</div><div class="arw">▼</div></div>' +
+      '</button>' +
+      '<div class="body">' +
+        '<h4>고지 체크포인트</h4><ul>' + d.pts.map(function(p){ return '<li>' + p + '</li>'; }).join('') + '</ul>' +
+        '<h4>미리 받아둘 서류</h4><ul>' + d.docs.map(function(p){ return '<li>' + p + '</li>'; }).join('') + '</ul>' +
+        '<div class="tip"><b>현장 팁</b> — ' + d.tip + '</div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+$('#q').addEventListener('input', renderItems);
+$('#items').addEventListener('click', function(e){
+  var b = e.target.closest('.item > button'); if(!b) return;
+  var it = b.parentElement;
+  it.classList.toggle('open');
+});
+renderItems();
+
+/* ═══════════ TAB 3 : insurers ═══════════ */
+if(document.getElementById('p-ins')){
+  var insType = '전체';
+  var TYPES = ['전체','손해보험','생명보험'];
+
+  $('#asofBox').innerHTML =
+    '<b>기준일 ' + META.asOf + '</b> 확인 · 공개 자료(공시·상품안내·보도) 기준<br>' +
+    '보험사 카드와 질환별 포인트마다 <b>확인 시점(asOf)</b>과 출처 성격을 표시했습니다. ' +
+    '표시된 기준일이 오래된 항목은 견적 전에 갱신 여부를 확인하십시오.';
+
+  document.getElementById('insTypeBar').innerHTML = TYPES.map(function(t){
+    return '<button class="chip' + (t===insType?' on':'') + '" data-t="' + t + '">' + t + '</button>';
+  }).join('');
+
+  document.getElementById('insTypeBar').addEventListener('click', function(e){
+    var b = e.target.closest('.chip'); if(!b) return;
+    insType = b.getAttribute('data-t');
+    Array.prototype.forEach.call(this.querySelectorAll('.chip'), function(x){ x.classList.remove('on'); });
+    b.classList.add('on');
+    renderIns();
+  });
+
+  function renderIns(){
+    var list = INSURERS.filter(function(x){ return insType === '전체' || x.type === insType; });
+    $('#insCount').textContent = list.length + '개 보험사 · ' + insType;
+    $('#insList').innerHTML = list.map(function(x){
+      return '<div class="ins">' +
+        '<div class="ihd"><span class="inm">' + x.name + '</span>' +
+          '<span class="ibd' + (x.type === '생명보험' ? ' life' : '') + '">' + x.type + '</span>' +
+          '<span class="idate">' + x.asOf + ' 확인</span></div>' +
+        '<div class="iln">' + x.lineups.map(function(l){ return '<span>' + l + '</span>'; }).join('') + '</div>' +
+        '<ul>' + x.points.map(function(p){ return '<li>' + p + '</li>'; }).join('') + '</ul>' +
+        '<div class="iw"><b>확인할 것</b> — ' + x.watch.join(' ') + '</div>' +
+        '<div class="isrc">출처 · ' + x.srcType + ' — ' + x.src + '</div>' +
+      '</div>';
+    }).join('');
+  }
+  renderIns();
+
+  var disKeys = Object.keys(DISEASE_INS);
+  var disSel = $('#disSel');
+  disSel.innerHTML = disKeys.map(function(k){ return '<option value="' + k + '">' + k + '</option>'; }).join('');
+
+  function renderDis(){
+    var k = disSel.value;
+    var rows = DISEASE_INS[k] || [];
+    var std = {
+      '고혈압': '10대 질병 — 5년 내 진단·치료·입원·수술·투약이면 고지. 표준심사는 3개월 내 혈압강하제 상시 복용도 별도 문항.',
+      '당뇨병': '10대 질병 — 5년 내 진단·치료·투약이면 고지. 합병증(신증·망막증·신경병증) 유무가 인수 판단을 가름.',
+      '고지혈증': '10대 질병 아님 — 3개월 내 처방만 확인하면 되는 경우가 대부분. 다만 일부 상품은 ‘고당지·고당지뇌심’ 유형에서 추가로 뭄습니다.',
+      '갑상선': '갑상선 결절·기능이상은 3개월 문항, 갑상선암은 5년 중대질환 문항. 간편심사도 암은 반드시 확인.',
+      '용종·내시경': '내시경 용종제거는 ‘수술’ — 표준 5년 / 간편 2~10년 수술 문항.',
+      '디스크·척추': '도수치료·주사는 ‘치료’. 같은 원인 7일 이상 치료면 5년 문항 해당.',
+      '유방 양성종양': '3개월 내 진단·조직검사가 기본. 결과지의 ‘재검·추적검사 권유’ 문구가 핵심.',
+      '자궁근종': '수술(복강경·하이픈) 이력은 수술 문항. 경과관찰만이면 3개월 진단·검사만 확인.',
+      '백내장': '수술 이력은 5년 수술 문항. 고령 고객에서 빈번해 누락되기 쉽습니다.',
+      '정신건강': '3개월 내 진단·투약 + 표준심사 2번 문항(신경안정제·수면제 상시 복용).',
+      '제왕절개': '청약서에 ‘수술(제왕절개 포함)’으로 명시 — 반드시 고지.'
+    };
+    var out = '<div class="note blue"><b>공통 고지 기준</b> — ' + (std[k] || '청약서 문항 기준으로 확인하십시오.') + '</div>';
+    out += '<div style="margin-top:10px">' + rows.map(function(r){
+      return '<div class="disnote"><div class="dn">' + r.ins + '</div><div class="dt">' + r.txt + '</div><div class="da">' + r.asOf + ' 기준 · 공개 자료</div></div>';
+    }).join('') + '</div>';
+    out += '<div class="note amber" style="margin-top:4px"><b>주의.</b> 같은 질환명이라도 병기·합병증·현재 복용약·가입금액에 따라 결과가 달라집니다. 여기 적힌 포인트는 <b>어느 보험사에 어떤 질문을 더 해야 하는지</b>를 정하는 용도입니다.</div>';
+    $('#disOut').innerHTML = out;
+  }
+  disSel.addEventListener('change', renderDis);
+  renderDis();
+}
+
+/* ═══════════ TAB 4 : messages ═══════════ */
+var MSG1 =
+'안녕하세요, 토스인슈어런스 강남2본부 이상아 팀장입니다 :)\n' +
+'보험은 가입 전에 병원 진료 이력을 정확히 알려주셔야 나중에 보험금 청구 때 문제가 없습니다.\n' +
+'번거로우시겠지만 아래 두 가지만 확인해 주세요.\n' +
+'1) 건강보험심사평가원 홈페이지 또는 \'건강e음\' 앱 → [내가 먹는 약! 한눈에] (최근 1년 투약이력)\n' +
+'2) 같은 앱 → [내 진료정보 열람] (최근 5년 진료내역)\n' +
+'화면 캡처해서 보내주시면 제가 미리 정리해 두겠습니다. 확인하시고 궁금한 점은 편하게 물어보세요.';
+
+var MSG2 =
+'안녕하세요, 고객님. 토스인슈어런스 강남2본부 이상아 팀장입니다.\n\n' +
+'보험 청약 전에 꼭 확인드릴 것이 있어 연락드립니다. 보험은 가입할 때 청약서가 묻는 사항을 사실대로 알려야 하고(계약 전 알릴의무), 이 부분이 누락되면 나중에 보험금 지급이 어려워지거나 계약이 해지될 수 있습니다. 좋은 보장을 받으시려면 이 단계를 정확히 하는 게 가장 중요합니다.\n\n' +
+'■ 최근 3개월\n' +
+'- 병원에서 진단·검사·치료·입원·수술을 받으셨거나, 약을 처방받으신 적 (감기약도 포함됩니다)\n' +
+'- 혈압약·수면제·진통제 등을 꾸준히 복용 중이신지\n\n' +
+'■ 최근 1년\n' +
+'- 검사 결과가 좋지 않아 다시 검사를 받으라는 이야기를 들으신 적\n\n' +
+'■ 최근 5년\n' +
+'- 입원하셨거나 수술(제왕절개, 내시경 용종 제거 포함)을 받으신 적\n' +
+'- 같은 이유로 7일 이상 치료를 받으셨거나, 30일 이상 약을 드신 적\n' +
+'- 암, 고혈압, 당뇨, 협심증, 심근경색, 심장판막증, 간경화, 뇌졸중으로 진단·치료받으신 적\n\n' +
+'■ 직접 확인하시는 방법\n' +
+'1) 건강보험심사평가원(hira.or.kr) 또는 \'건강e음\' 앱 → [내가 먹는 약! 한눈에] : 최근 1년 투약이력\n' +
+'2) 같은 곳 → [내 진료정보 열람] : 최근 5년 진료·처방내역 (최대 3개월 시차가 있을 수 있습니다)\n' +
+'3) 국민건강보험공단 \'The건강보험\' 앱 : 진료내역·건강검진 결과\n' +
+'4) 위 조회에 안 나오는 도수치료·비급여 주사·건강검진은 병원 원무과에서 서류로 받으실 수 있습니다\n\n' +
+'확인하신 내용을 캡처나 말씀으로 주시면 제가 청약서 문항에 맞춰 하나씩 정리해 드리겠습니다. 애매한 부분은 가입 전에 보험사 심사팀에 미리 확인해 두겠습니다.\n\n' +
+'번거롭게 해드려 죄송하고, 그만큼 꼼꼼히 챙기겠습니다. 감사합니다.';
+
+$('#msg1').textContent = MSG1;
+$('#msg2').textContent = MSG2;
+
+document.addEventListener('click', function(e){
+  var b = e.target.closest('[data-copy]');
+  if(!b) return;
+  var el = document.getElementById(b.getAttribute('data-copy'));
+  if(el) copyText(el.textContent, b);
+});
+
+/* defense checklist */
+var DEF = [
+  {t:'청약서 문항을 고객과 함께 소리 내어 읽었다', s:'기간(3개월·1년·5년)과 단어(진단·의심소견·추가검사·입원·수술·투약)를 확인'},
+  {t:'최근 3개월 처방(투약) 내역을 확인했다', s:'감기약·소염제 포함. 건강e음 ‘내가 먹는 약! 한눈에’ 활용'},
+  {t:'최근 5년 입원·수술 이력을 날짜로 확인했다', s:'용종제거·제왕절개·당일입원·응급실 입원 포함'},
+  {t:'7일 이상 치료 / 30일 이상 투약 이력을 확인했다', s:'도수치료·재활·만성질환 장기 처방'},
+  {t:'건강검진 결과지의 ‘소견·권고’ 문구를 직접 확인했다', s:'경과관찰인지, 재검·정밀검사 권유인지'},
+  {t:'10대 질병(실손은 11대) 해당 여부를 확인했다', s:'고혈압·당뇨·암·간경화·뇌졸중 등'},
+  {t:'고객이 말한 내용을 청약서에 직접 기재하도록 안내했다', s:'설계사에게 구두로 말한 것만으로는 효력이 없음'},
+  {t:'청약서 사본을 고객에게 교부했다', s:'나중에 문항·기재 내용을 대조할 유일한 자료'},
+  {t:'고지의무 위반 효과(해지·보장제한·보험금 미지급)를 설명했다', s:'청약서 확인 문구에 서명'},
+  {t:'애매한 병력은 보험사 심사팀에 사전 문의하고 답변을 보관했다', s:'메일·채팅 캡처로 남기기'}
+];
+
+$('#defense').innerHTML = DEF.map(function(d, i){
+  return '<li><input type="checkbox" id="df' + i + '"><label class="tx" for="df' + i + '"><b>' + d.t + '</b><span>' + d.s + '</span></label></li>';
+}).join('');
+
+function updateProg(){
+  var boxes = $$('#defense input');
+  var on = boxes.filter(function(b){ return b.checked; }).length;
+  var pct = Math.round(on / boxes.length * 100);
+  $('#prog').style.width = pct + '%';
+  $('#progtx').textContent = on + ' / ' + boxes.length + ' 확인' + (on === boxes.length ? ' — 모두 확인했습니다' : '');
+}
+$('#defense').addEventListener('change', updateProg);
+updateProg();
+
+/* note builder */
+function korDate(iso){
+  if(!iso) return '';
+  var d = new Date(iso + 'T00:00:00');
+  if(isNaN(d)) return '';
+  return d.getFullYear() + '년 ' + (d.getMonth()+1) + '월 ' + d.getDate() + '일';
+}
+$('#mknote').addEventListener('click', function(){
+  var nm = ($('#cname').value || '').trim();
+  var pr = ($('#cprod').value || '').trim();
+  var iso = dEl.value || todayISO();
+  var base = new Date(iso + 'T00:00:00');
+  var p = PRESETS[presetEl.value];
+
+  var lines = [];
+  lines.push('■ 병력·알릴의무 점검 기록');
+  lines.push('작성일: ' + fmt(new Date()) + ' / 담당: 토스인슈어런스 강남2본부 이상아');
+  if(nm) lines.push('고객: ' + nm);
+  if(pr) lines.push('검토 상품: ' + pr);
+  lines.push('청약 예정일: ' + korDate(iso) + ' (' + fmt(base) + ')');
+  lines.push('심사 유형: ' + p.title.replace(' 체크리스트',''));
+  lines.push('');
+  lines.push('[고지 대상 기간]');
+  lines.push('- 최근 3개월: ' + fmt(shift(base,3)) + ' ~ ' + fmt(base));
+  lines.push('- 최근 1년: ' + fmt(shift(base,12)) + ' ~ ' + fmt(base));
+  lines.push('- 최근 2년: ' + fmt(shift(base,24)) + ' ~ ' + fmt(base));
+  lines.push('- 최근 5년: ' + fmt(shift(base,60)) + ' ~ ' + fmt(base));
+  lines.push('※ 청약일의 N개월 전일부터 청약일까지 기준(표준약관)');
+  lines.push('');
+  lines.push('[확인 항목]');
+  $$('#defense li').forEach(function(li, i){
+    var cb = li.querySelector('input');
+    lines.push((cb.checked ? '[v] ' : '[ ] ') + DEF[i].t);
+  });
+  lines.push('');
+  lines.push('[메모]');
+  lines.push('- ');
+  lines.push('');
+  lines.push('※ 위 내용은 청약서 문항 기준으로 정리한 상담 기록이며, 최종 인수 여부는 해당 보험사 전산 심사 결과에 따릅니다.');
+
+  var el = $('#noteout');
+  el.textContent = lines.join('\n');
+  el.style.display = 'block';
+  $('#notebtns').style.display = 'flex';
+  el.scrollIntoView({behavior:'smooth', block:'center'});
+});
+
+})();
+</script>
+</body>
+</html>

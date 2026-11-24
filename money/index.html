@@ -1124,9 +1124,23 @@ function openEntry(entry, presetDate){
   var inp = document.getElementById('fAmount');
   if(inp){
     inp.addEventListener('input', function(){
+      var sel = inp.selectionStart;
+      var digitsBefore = (sel==null ? inp.value : inp.value.slice(0, sel)).replace(/[^0-9]/g,'').length;
       var v = parseAmount(inp.value);
-      inp.value = v ? money(v) : '';
+      var fmt = v ? money(v) : '';
       sheet.amount = String(v||'');
+      if(inp.value !== fmt){
+        inp.value = fmt;
+        /* 천단위 콤마를 다시 붙일 때 커서가 끝으로 튀지 않게, 숫자 자릿수를 기준으로 자리 지킴 */
+        try{
+          var pos = 0, seen = 0;
+          while(pos < fmt.length && seen < digitsBefore){
+            if(fmt.charAt(pos) >= '0' && fmt.charAt(pos) <= '9') seen++;
+            pos++;
+          }
+          if(inp.setSelectionRange) inp.setSelectionRange(pos, pos);
+        }catch(e){}
+      }
     });
     setTimeout(function(){ try{ inp.focus(); }catch(e){} }, 120);
   }

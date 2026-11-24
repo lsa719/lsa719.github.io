@@ -754,7 +754,7 @@ function viewMonth(){
         '<div class="fb i"><i style="width:'+Math.max(wi,f.t.income?3:0)+'%"></i></div>'+
         '<div class="fb e"><i style="width:'+Math.max(we,f.t.expense?3:0)+'%"></i></div>'+
       '</div>'+
-      '<div class="flow-num num"><span class="ins">+'+compact(f.t.income||0)+'</span><span class="exp">-'+compact(f.t.expense||0)+'</span></div>'+
+      '<div class="flow-num num"><span class="ins">'+(f.t.income?'+'+compact(f.t.income):'0')+'</span><span class="exp">'+(f.t.expense?'-'+compact(f.t.expense):'0')+'</span></div>'+
     '</div>';
   }).join('');
 

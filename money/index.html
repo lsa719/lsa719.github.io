@@ -10,7 +10,9 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="format-detection" content="telephone=no">
 <title>주간 돈관리 플래너</title>
-<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+<link rel="icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
 <style>
 :root{
   --blue:#3182f6; --blue-dark:#1b64da; --blue-weak:#e8f2ff;
@@ -20,6 +22,8 @@
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+button,.btn,.chip,.tab-btn,.seg button,.quick button{touch-action:manipulation}
 body{
   font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Malgun Gothic",system-ui,sans-serif;
   background:var(--bg); color:var(--ink); font-size:15px; line-height:1.45;
@@ -196,9 +200,9 @@ main{padding:14px 16px 8px;display:grid;grid-template-columns:minmax(0,1fr);gap:
 .set-row .d{font-size:11.5px;color:var(--sub);font-weight:600;margin-top:1px}
 .field{margin-top:14px}
 .field>label{font-size:12px;font-weight:800;color:var(--sub);display:block;margin-bottom:6px}
-.inp{width:100%;border:1px solid var(--line);background:#fafbfc;border-radius:12px;padding:12px;font-size:15px;font-weight:600;outline:none;transition:.12s}
+.inp{width:100%;border:1px solid var(--line);background:#fafbfc;border-radius:12px;padding:12px;font-size:16px;font-weight:600;outline:none;transition:.12s}
 .inp:focus{border-color:var(--blue);background:#fff}
-.inp.small{padding:9px 11px;font-size:14px}
+.inp.small{padding:9px 11px;font-size:16px}
 select.inp{appearance:none;background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238b95a1' stroke-width='3'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
 .cat-item{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #f7f8fa}
 .cat-item:last-child{border-bottom:0}
@@ -213,14 +217,14 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml;charset=utf8
 .notice p{font-size:11.5px;color:#3d6aa8;font-weight:600;margin-top:3px;line-height:1.55}
 
 /* modal / sheet */
-.modal{position:fixed;inset:0;z-index:100;display:none}
+.modal{position:fixed;top:0;left:0;right:0;bottom:0;bottom:var(--kb,0px);z-index:100;display:none}
 .modal.open{display:flex;align-items:flex-end;justify-content:center}
 .modal-backdrop{position:absolute;inset:0;background:rgba(17,24,39,.45);animation:fadein .18s ease}
-.sheet{position:relative;width:100%;max-width:520px;background:#fff;border-radius:24px 24px 0 0;padding:8px 18px calc(16px + env(safe-area-inset-bottom));max-height:92vh;overflow-y:auto;animation:up .22s cubic-bezier(.2,.8,.2,1)}
+.sheet{position:relative;width:100%;max-width:520px;background:#fff;border-radius:24px 24px 0 0;padding:8px 18px calc(16px + env(safe-area-inset-bottom));max-height:92vh;max-height:92dvh;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;animation:up .22s cubic-bezier(.2,.8,.2,1)}
 .grab{width:40px;height:4px;border-radius:99px;background:#dfe3e8;margin:2px auto 10px}
 .sheet h3{font-size:16px;font-weight:800;letter-spacing:-.3px;margin-bottom:2px}
 .seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#f2f4f6;padding:4px;border-radius:14px;margin-top:12px}
-.seg button{padding:10px;border-radius:11px;font-weight:800;font-size:14px;color:var(--ink2)}
+.seg button{padding:10px;min-height:44px;border-radius:11px;font-weight:800;font-size:14px;color:var(--ink2)}
 .seg button.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.09)}
 .seg.three{grid-template-columns:repeat(3,1fr)}
 .amount-box{display:flex;align-items:baseline;gap:6px;padding:16px 2px 8px;border-bottom:2px solid var(--line);margin-top:6px}
@@ -228,11 +232,11 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml;charset=utf8
 .amount-box input::placeholder{color:#c9d0d8}
 .amount-box .won{font-size:18px;font-weight:700;color:var(--sub)}
 .quick{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap}
-.quick button{padding:7px 11px;border-radius:9px;background:#f2f4f6;font-size:12.5px;font-weight:800;color:var(--ink2)}
+.quick button{padding:8px 12px;min-height:38px;display:inline-flex;align-items:center;border-radius:9px;background:#f2f4f6;font-size:12.5px;font-weight:800;color:var(--ink2)}
 .quick button:active{background:#e6eaee}
 .cat-wrap{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
-.cat-wrap .chip{font-size:12.5px;padding:8px 12px}
-.sheet-foot{display:flex;gap:8px;margin-top:18px}
+.cat-wrap .chip{font-size:12.5px;padding:9px 12px;min-height:40px;display:inline-flex;align-items:center}
+.sheet-foot{display:flex;gap:8px;margin-top:18px;position:sticky;bottom:0;background:#fff;padding-top:10px;padding-bottom:2px;box-shadow:0 -10px 14px -12px rgba(17,24,39,.14)}
 .sheet-foot .btn{flex:1}
 .swatches{display:flex;gap:8px;margin-top:7px}
 .sw{width:30px;height:30px;border-radius:10px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.9);outline:2px solid transparent;outline-offset:1px}
@@ -577,12 +581,13 @@ function incomeSplit(list){
 
 /* ---------- toast ---------- */
 var toastTimer = null;
-function toast(msg){
+function toast(msg, ms){
   var el = document.getElementById('toast');
+  if(!el) return;
   el.textContent = msg;
   el.classList.add('on');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(function(){ el.classList.remove('on'); }, 1900);
+  toastTimer = setTimeout(function(){ el.classList.remove('on'); }, Number(ms)||1900);
 }
 
 /* ---------- render root ---------- */
@@ -1066,14 +1071,45 @@ function openModal(html){
   modal.classList.add('open');
   modal.setAttribute('aria-hidden','false');
   document.body.style.overflow = 'hidden';
+  syncSheetHeight();
 }
 function closeModal(){
   modal.classList.remove('open');
   modal.setAttribute('aria-hidden','true');
   document.body.style.overflow = '';
+  document.documentElement.style.removeProperty('--kb');
+  sheetEl.style.maxHeight = '';
   sheet = null;
   sheetEl.innerHTML = '';
 }
+/* iOS Safari는 키보드가 올라와도 레이아웃 화면 높이는 그대로라서,
+   시트 아래 ‘저장’ 버튼이 키보드에 가려진다. 보이는 영역(visualViewport)에 맞춰 시트를 올린다. */
+function syncSheetHeight(){
+  if(!modal.classList.contains('open')) return;
+  var vv = window.visualViewport;
+  var kb = 0, vh = window.innerHeight;
+  if(vv && vv.height){
+    vh = vv.height;
+    kb = Math.max(0, window.innerHeight - vv.height - (vv.offsetTop||0));
+  }
+  document.documentElement.style.setProperty('--kb', Math.round(kb) + 'px');
+  sheetEl.style.maxHeight = Math.max(260, Math.round(vh * 0.94)) + 'px';
+}
+if(window.visualViewport){
+  window.visualViewport.addEventListener('resize', syncSheetHeight);
+  window.visualViewport.addEventListener('scroll', syncSheetHeight);
+}
+window.addEventListener('resize', syncSheetHeight);
+window.addEventListener('orientationchange', function(){ setTimeout(syncSheetHeight, 220); });
+/* 입력창을 눌렀을 때 키보드에 가리지 않게 시트 안에서 가운데로 스크롤 */
+sheetEl.addEventListener('focusin', function(ev){
+  var t = ev.target;
+  if(!t || (t.tagName!=='INPUT' && t.tagName!=='SELECT')) return;
+  setTimeout(function(){
+    try{ t.scrollIntoView({ block:'center', behavior:'smooth' }); }
+    catch(e){ try{ t.scrollIntoView(); }catch(e2){} }
+  }, 260);
+});
 
 /* ---- entry sheet ---- */
 function openEntry(entry, presetDate){
@@ -1535,8 +1571,109 @@ function deleteCategory(type, id){
   persist(); render(); toast('카테고리를 삭제했어요');
 }
 
+/* ================================================================== *
+ *  SHARED LINK · ?add= 로 내역 바로 추가
+ *  예) /money/?add=<base64url(JSON)>
+ *      /money/?date=2026-11-24&type=expense&cat=식비&amount=28710&memo=...
+ *  열리면 localStorage에 한 건을 넣고 토스트를 띄운 뒤,
+ *  주소에서 파라미터를 지워 새로고침해도 중복되지 않게 한다.
+ * ================================================================== */
+var ADD_KEYS = ['add','date','type','kind','cat','category','amount','amt','memo','method','id'];
+
+function decodeB64Url(str){
+  var s = String(str||'').replace(/-/g,'+').replace(/_/g,'/').replace(/\s/g,'');
+  while(s.length % 4) s += '=';
+  var bin = atob(s);
+  var bytes = new Uint8Array(bin.length);
+  for(var i=0;i<bin.length;i++) bytes[i] = bin.charCodeAt(i);
+  try{ return new TextDecoder('utf-8').decode(bytes); }
+  catch(e){ return decodeURIComponent(escape(bin)); }
+}
+function readAddPayload(){
+  var q;
+  try{ q = new URLSearchParams(window.location.search || ''); }
+  catch(e){ return null; }
+  var raw = q.get('add');
+  if(raw){
+    var obj = null;
+    try{ obj = JSON.parse(decodeB64Url(raw)); }catch(e){ obj = null; }
+    if(!obj){ try{ obj = JSON.parse(raw); }catch(e2){ obj = null; } }
+    if(!obj || typeof obj!=='object' || Object.prototype.toString.call(obj)==='[object Array]') return { bad:true };
+    return obj;
+  }
+  if(q.get('amount') || q.get('amt')){
+    return { date:q.get('date')||'', type:q.get('type')||q.get('kind')||'expense',
+             cat:q.get('cat')||q.get('category')||'', amount:q.get('amount')||q.get('amt')||'',
+             memo:q.get('memo')||'', method:q.get('method')||'', id:q.get('id')||'' };
+  }
+  return null;
+}
+function cleanAddUrl(){
+  try{
+    var q = new URLSearchParams(window.location.search || '');
+    ADD_KEYS.forEach(function(k){ q.delete(k); });
+    var rest = q.toString();
+    window.history.replaceState(null, '', window.location.pathname + (rest?'?'+rest:'') + (window.location.hash||''));
+  }catch(e){}
+}
+function findCategoryId(type, key){
+  var list = state.categories[type] || [];
+  var k = String(key==null?'':key).trim();
+  var norm = function(s){ return String(s||'').replace(/\s+/g,'').toLowerCase(); };
+  if(k){
+    var hit = list.filter(function(c){ return c.id===k; })[0];
+    if(!hit) hit = list.filter(function(c){ return c.name===k || norm(c.name)===norm(k); })[0];
+    if(hit) return hit.id;
+  }
+  var etc = list.filter(function(c){ return c.name==='기타'; })[0];
+  return (etc || list[0] || {}).id || null;
+}
+function jumpToDate(dateStr){
+  var d = parseYmd(dateStr);
+  UI.monthY = d.getFullYear(); UI.monthM = d.getMonth();
+  UI.selectedDate = dateStr;
+  UI.weekY = d.getFullYear(); UI.weekM = d.getMonth();
+  var ws = monthWeeks(UI.weekY, UI.weekM);
+  for(var i=0;i<ws.length;i++){
+    if(dateStr >= ymd(ws[i].startDate) && dateStr <= ymd(ws[i].endDate)){ UI.weekIdx = i; break; }
+  }
+}
+function applyAddLink(){
+  var data = readAddPayload();
+  if(!data) return false;
+  cleanAddUrl();
+  if(data.bad){ toast('추가할 내역 정보를 읽지 못했어요', 2600); return false; }
+  var amount = parseAmount(data.amount);
+  var tk = String(data.type==null?'':data.type).trim().toLowerCase();
+  var type = (tk==='income'||tk==='in'||tk==='수입') ? 'income' : 'expense';
+  var dateRaw = String(data.date==null?'':data.date).trim();
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(dateRaw) && /^\d{8}$/.test(dateRaw)){
+    dateRaw = dateRaw.slice(0,4)+'-'+dateRaw.slice(4,6)+'-'+dateRaw.slice(6,8);
+  }
+  var date = /^\d{4}-\d{2}-\d{2}$/.test(dateRaw) ? dateRaw : todayStr();
+  if(!amount){ toast('금액이 없어 내역을 추가하지 못했어요', 2600); return false; }
+  var categoryId = findCategoryId(type, data.cat);
+  if(!categoryId){ toast('카테고리를 찾지 못해 추가하지 못했어요', 2600); return false; }
+  var allowed = (type==='income' ? ['transfer','cash'] : ['cash','transfer']).concat(state.cards.map(function(c){ return 'card:'+c.id; }));
+  var method = String(data.method==null?'':data.method).trim();
+  if(allowed.indexOf(method)===-1) method = (type==='income' ? 'transfer' : 'cash');
+  if(isCardMethod(method) && !cardById(method.slice(5))) method = (type==='income' ? 'transfer' : 'cash');
+  var memo = String(data.memo==null?'':data.memo).slice(0,40);
+  var id = String(data.id==null?'':data.id).trim();
+  if(id && state.entries.some(function(e){ return e.id===id; })){ toast('이미 추가된 내역이에요', 2600); return false; }
+  state.entries.push({ id: id || uid('e'), date:date, type:type, categoryId:categoryId,
+    amount:amount, method:method, memo:memo, createdAt:new Date().toISOString() });
+  state.sample = false;
+  persist();
+  jumpToDate(date);
+  render();
+  toast('내역이 추가되었어요', 2600);
+  return true;
+}
+
 /* boot */
 render();
+applyAddLink();
 })();
 </script>
 </body>

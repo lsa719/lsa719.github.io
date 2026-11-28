@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#faf7f1"><meta name="description" content="통장 잔액과 앞으로 나갈 돈을 확인하고, 다음 월급까지 쓸 수 있는 생활비를 3분 안에 정리해보세요.">
+<title>3분 생활비 정리 | 이상아의 머니노트</title>
+<style>
+:root{--ink:#233d36;--green:#315d4d;--cream:#faf7f1;--muted:#6c736c;--line:#e6e6dc;--coral:#c57456}*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.65}main{max-width:560px;margin:0 auto;padding:30px 22px 45px}.brand{font-size:14px;letter-spacing:.03em;font-weight:650}.badge{display:inline-block;font-size:12px;padding:4px 10px;background:#e8ede3;border-radius:30px;margin-top:26px}h1{font-size:34px;line-height:1.35;letter-spacing:-1.5px;margin:13px 0}p{margin:0 0 16px}.lead{color:var(--muted);font-size:15px}.progress{display:flex;gap:8px;margin:25px 0 10px}.progress span{height:5px;flex:1;background:#e3e4d9;border-radius:5px}.progress .on{background:var(--green)}.stepinfo{font-size:12px;color:var(--muted);margin-bottom:22px}.panel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:25px 23px;box-shadow:0 8px 35px #233d3605}h2{font-size:23px;line-height:1.45;margin:0 0 8px;letter-spacing:-.6px}.hint{font-size:14px;color:var(--muted)}label{display:block;font-size:15px;font-weight:650;margin:23px 0 7px}.field{position:relative}.field input{width:100%;padding:15px 64px 15px 15px;background:#fbfcf8;border:1px solid #cdd6cb;border-radius:12px;font-size:22px;color:var(--ink);appearance:none}.field input:focus{outline:3px solid #d4e2d5;border-color:var(--green)}.unit{position:absolute;right:16px;top:17px;color:var(--muted);font-size:14px}.help{font-size:12px;margin:7px 0 0;color:var(--muted)}.note{border-left:3px solid #d7a489;padding:9px 12px;background:#fcf4eb;font-size:13px;margin-top:20px;border-radius:0 7px 7px 0}.actions{display:flex;gap:9px;margin-top:27px}button{border:0;border-radius:12px;padding:15px;font:inherit;font-size:15px;font-weight:650;cursor:pointer;min-height:50px}.primary{flex:1;background:var(--green);color:white}.secondary{background:#eef0e8;color:var(--ink)}button:focus-visible,.cta:focus-visible{outline:3px solid var(--coral);outline-offset:3px}.error{color:#a13925;font-size:13px;margin:12px 0 0}.footer{text-align:center;font-size:12px;color:var(--muted);margin-top:23px}.example{width:100%;background:none;color:var(--muted);font-size:13px;text-decoration:underline;margin-top:5px}.result-card{background:var(--green);color:white;padding:24px 22px;border-radius:16px;margin:22px 0}.result-card small{color:#dfebd9}.big{font-size:39px;font-weight:700;letter-spacing:-1px;line-height:1.5}.daily{border-top:1px solid #ffffff35;margin-top:15px;padding-top:15px;display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:14px}.daily strong{font-size:22px}dl{margin:22px 0}dl div{display:flex;justify-content:space-between;gap:15px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}dd{margin:0;font-weight:650;text-align:right}.micro{font-size:12px;color:var(--muted)}#copytext{width:100%;font:inherit;font-size:14px;padding:12px;border:1px solid var(--line);border-radius:10px;min-height:150px;margin-top:14px}.cta{display:block;text-align:center;text-decoration:none;border-radius:12px;padding:16px 14px;font-size:15px;font-weight:700;line-height:1.45;margin-top:10px;-webkit-tap-highlight-color:transparent;transition:transform .12s ease,filter .12s ease}.cta:active{transform:scale(.985)}.cta-kakao{background:var(--green);color:#fff;box-shadow:0 4px 14px #315d4d33}.cta-kakao:hover{filter:brightness(1.08)}.cta-form{background:#fbfcf8;color:var(--green);border:1.5px solid #b9c8bb}.cta-form:hover{background:#eef0e8}.ctanote{margin:12px 0 0}[hidden]{display:none!important}@media(max-width:380px){main{padding:23px 16px}h1{font-size:30px}.panel{padding:22px 18px}.big{font-size:32px}}
+</style>
+</head>
+<body><main>
+<div class="brand">이상아의 머니노트</div>
+<div class="badge">3분 · 통장관리 상담 맛보기</div>
+<h1>통장에 남은 돈,<br>얼마까지 써도 될까요?</h1>
+<p class="lead">숫자 4개로, 지금 쓸 수 있는 생활비부터 확인해요.<br>제가 상담에서 함께 살펴보는 첫 단계를 경험해보세요.</p>
+<div class="progress" aria-hidden="true"><span class="on"></span><span></span><span></span></div>
+<div class="stepinfo" id="stepinfo">1 / 3 · 잔액 확인</div>
+<form id="form" novalidate>
+<section class="panel" id="step1" aria-labelledby="title1">
+<h2 id="title1" tabindex="-1">지금 쓸 통장에<br>얼마가 남아 있나요?</h2>
+<p class="hint">생활비로 쓸 통장 잔액만 더해주세요.<br>적금·투자금·비상금·마이너스통장 한도는 제외해요.</p>
+<label for="balance">생활비 통장 잔액</label><div class="field"><input id="balance" type="text" inputmode="decimal" placeholder="예: 100" autocomplete="off" aria-describedby="balancehelp"><span class="unit">만원</span></div>
+<p class="help" id="balancehelp">100만원이면 100, 5천원이면 0.5를 입력해요.</p>
+<p class="error" id="error1" role="alert" hidden></p>
+<div class="actions"><button class="primary" type="button" id="next1">다음 · 나갈 돈 확인</button></div>
+</section>
+<section class="panel" id="step2" aria-labelledby="title2" hidden>
+<h2 id="title2" tabindex="-1">월급 전에 빠져나갈 돈을<br>먼저 빼둘게요.</h2>
+<p class="hint">앞에서 입력한 통장에서 나갈 금액만 적어요.<br>해당 금액이 없으면 0을 입력해주세요.</p>
+<label for="card">아직 출금되지 않은 카드값</label><div class="field"><input id="card" type="text" inputmode="decimal" placeholder="예: 45" autocomplete="off"><span class="unit">만원</span></div>
+<p class="help">다음 월급 전에 결제되는 금액을 카드 앱에서 확인해요.</p>
+<label for="bills">그 밖에 나갈 돈</label><div class="field"><input id="bills" type="text" inputmode="decimal" placeholder="예: 15" autocomplete="off" aria-describedby="billshelp"><span class="unit">만원</span></div>
+<p class="help" id="billshelp">월세·보험료·통신비 등 계좌에서 나갈 돈을 더해요.</p>
+<div class="note">카드값에 포함된 보험료·통신비는 여기서 다시 빼지 않아요. 이미 빠져나간 돈도 제외해요.</div>
+<p class="error" id="error2" role="alert" hidden></p>
+<div class="actions"><button class="secondary" type="button" data-back="1">이전</button><button class="primary" type="button" id="next2">다음 · 남은 기간 확인</button></div>
+</section>
+<section class="panel" id="step3" aria-labelledby="title3" hidden>
+<h2 id="title3" tabindex="-1">다음 월급까지<br>며칠 남았나요?</h2>
+<p class="hint">오늘부터 월급 전날까지 생활할 일수를 적어요.<br>내일 월급이 들어오면 1일이에요.</p>
+<label for="days">남은 일수</label><div class="field"><input id="days" type="text" inputmode="numeric" placeholder="예: 10" autocomplete="off"><span class="unit">일</span></div>
+<p class="help">수입이 불규칙하면 다음 수입일까지의 예상 일수를 적어요.</p>
+<p class="error" id="error3" role="alert" hidden></p>
+<div class="actions"><button class="secondary" type="button" data-back="2">이전</button><button class="primary" type="submit">내 생활비 확인하기</button></div>
+</section>
+</form>
+<section class="panel" id="result" aria-labelledby="resulttitle" hidden>
+<h2 id="resulttitle" tabindex="-1">오늘의 통장 정리, 끝!</h2><p class="hint" id="resultintro"></p>
+<div class="result-card"><small id="remaininglabel">월급 전까지 쓸 수 있는 돈</small><div class="big" id="remaining"></div><div class="daily"><span id="dailylabel">하루 평균 예산</span><strong id="daily"></strong></div></div>
+<dl id="breakdown"></dl><div class="note" id="advice"></div>
+<p class="micro" style="margin-top:13px">입력한 금액을 기준으로 한 예상이에요. 새 카드 사용·추가 지출이 생기면 다시 계산해주세요. 하루 예산은 원 단위에서 내림해요.</p>
+<div class="actions"><button type="button" class="secondary" id="edit">수정</button><button type="button" class="primary" id="copy">결과 복사하기</button></div><p id="copystatus" class="help" role="status"></p><textarea id="copytext" aria-label="복사할 정리 결과" readonly hidden></textarea>
+<div style="margin-top:26px;border-top:1px solid var(--line);padding-top:23px">
+<p class="micro" style="color:var(--coral);font-weight:650">통장관리 상담, 첫 단계만 경험해보셨어요.</p>
+<h2 style="font-size:21px">우리 집 통장은<br>어떻게 나누면 좋을까요?</h2>
+<p class="hint">생활비·고정비·저축을 어떻게 나눌지,<br>내 수입과 지출에 맞춰 조금 더 자세히 정리하고 싶다면 편하게 연락주세요.</p>
+<a class="cta cta-kakao" href="https://open.kakao.com/o/sTmwwoXi" target="_blank" rel="noopener">💬 카톡으로 바로 30분 상담하기</a>
+<a class="cta cta-form" href="https://docs.google.com/forms/d/e/1FAIpQLSfvKuQgZ1SlvLeTC91anR9_jkbU0-krZaV-JYHX-4QltLkznQ/viewform" target="_blank" rel="noopener">📋 1:1 사전 질문지 먼저 남기기</a>
+<p class="micro ctanote">처음에는 통장 잔액이나 계좌번호를 보내지 않으셔도 돼요.</p>
+</div><button type="button" class="example" id="reset">처음부터 새로 정리하기</button>
+</section>
+<button class="example" type="button" id="example">입력 전에 예시로 한번 해보기</button>
+<div class="footer">이름·연락처 입력 없이 이용해요.<br>입력한 숫자는 서버로 전송하거나 저장하지 않아요.<br><span style="display:block;margin-top:13px">재무관리 상담사 이상아</span></div>
+<script>
+function calculateBudget(balance,card,bills,days){const remaining=balance-card-bills;return {remaining,daily:Math.floor(Math.max(0,remaining)/days),shortfall:Math.max(0,-remaining)};}
+const $=id=>document.getElementById(id), money=n=>new Intl.NumberFormat('ko-KR').format(n)+'원';
+let summary='';
+function show(step){for(let i=1;i<=3;i++)$('step'+i).hidden=step!==i;$('result').hidden=step!==4;$('example').hidden=step!==1;document.querySelectorAll('.progress span').forEach((x,i)=>x.classList.toggle('on',i<step));$('stepinfo').textContent=step===4?'완료 · 내 생활비 확인':step+' / 3 · '+['잔액 확인','나갈 돈 확인','남은 기간 확인'][step-1];const heading=$(step===4?'resulttitle':'title'+step);heading.focus();}
+function amount(id){const raw=$(id).value.trim();if(!/^\d+(\.\d{1,4})?$/.test(raw))return null;const value=Math.round(Number(raw)*10000);return Number.isSafeInteger(value)&&value<=100000000000?value:null;}
+function error(step,msg){$('error'+step).hidden=!msg;$('error'+step).textContent=msg;}
+function check1(){if(amount('balance')===null){error(1,'잔액을 0 이상 숫자로 적어주세요. 예: 100 또는 0.5');$('balance').focus();return false;}error(1,'');return true;}
+function check2(){for(const id of ['card','bills']){if(amount(id)===null){error(2,'금액을 숫자로 적어주세요. 나갈 돈이 없으면 0을 입력해요.');$(id).focus();return false;}}error(2,'');return true;}
+$('next1').onclick=()=>{if(check1())show(2)};$('next2').onclick=()=>{if(check2())show(3)};document.querySelectorAll('[data-back]').forEach(b=>b.onclick=()=>show(Number(b.dataset.back)));
+$('form').onsubmit=e=>{e.preventDefault();if(!check1()){show(1);return}if(!check2()){show(2);return}const raw=$('days').value.trim(),days=Number(raw);if(!/^\d+$/.test(raw)||days<1||days>365){error(3,'남은 일수는 1~365 사이의 정수로 적어주세요.');$('days').focus();return;}error(3,'');const balance=amount('balance'),card=amount('card'),bills=amount('bills'),r=calculateBudget(balance,card,bills,days);const negative=r.remaining<0;$('resultintro').textContent=negative?'예정된 지출이 잔액보다 많아요. 부족한 금액부터 확인해요.':'앞으로 '+days+'일 동안 쓸 생활비에요.';$('remaininglabel').textContent=negative?'예정된 지출에 부족한 돈':'월급 전까지 쓸 수 있는 돈';$('remaining').textContent=money(negative?r.shortfall:r.remaining);$('dailylabel').textContent=negative?'추가로 쓸 수 있는 예산':'하루 평균 예산';$('daily').textContent=money(r.daily);$('breakdown').replaceChildren();[['생활비 통장 잔액',money(balance)],['출금 전 카드값','− '+money(card)],['그 밖에 나갈 돈','− '+money(bills)],['월급까지 남은 기간',days+'일']].forEach(([k,v])=>{const row=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=k;dd.textContent=v;row.append(dt,dd);$('breakdown').append(row)});$('advice').textContent=negative?'추가 지출 전에 카드 결제일과 자동이체일을 확인하고, 부족한 금액을 어떻게 마련할지 먼저 정리해요.':r.remaining===0?'예정 지출을 빼면 남는 돈이 없어요. 추가 소비 전에 지출 일정과 사용할 수 있는 다른 생활비가 있는지 확인해요.':'매일 이 금액을 꼭 쓸 필요는 없어요. 장보기처럼 크게 쓴 날에는 남은 금액을 남은 일수로 다시 나눠보세요.';summary='이상아의 머니노트 | 오늘의 생활비 정리\n통장 잔액: '+money(balance)+'\n출금 전 카드값: '+money(card)+'\n그 밖에 나갈 돈: '+money(bills)+'\n남은 기간: '+days+'일\n'+(negative?'부족한 돈: '+money(r.shortfall):'남은 생활비: '+money(r.remaining))+'\n하루 평균 예산: '+money(r.daily)+'\n※ 입력한 예정 지출 기준. 추가 지출이 생기면 다시 계산해요.';$('copystatus').textContent='';$('copytext').hidden=true;show(4);};
+$('example').onclick=()=>{$('balance').value='100';$('card').value='45';$('bills').value='15';$('days').value='10';show(1);$('balance').focus();};$('edit').onclick=()=>show(1);$('reset').onclick=()=>{$('form').reset();for(let i=1;i<=3;i++)error(i,'');show(1);};$('copy').onclick=async()=>{try{await navigator.clipboard.writeText(summary);$('copystatus').textContent='복사했어요. 내 메모나 카카오톡에 붙여넣어 보관하세요.';}catch{$('copytext').hidden=false;$('copytext').value=summary;$('copytext').focus();$('copytext').select();$('copystatus').textContent='아래 내용을 길게 눌러 복사해주세요.';}};
+</script></body></html>
